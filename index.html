@@ -86,13 +86,16 @@
             <!-- Onboarding View -->
             <section id="view-onboarding" class="view view--active">
                 <div class="onboarding">
-                    <div class="onboarding__icon">
-                        <i class="fa-solid fa-wallet"></i>
+                    <div class="onboarding__left">
+                        <div class="onboarding__icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <h2 class="onboarding__title" data-i18n="onboarding.welcome">Welcome to FinTrack</h2>
+                        <p class="onboarding__subtitle" data-i18n="onboarding.subtitle">Let's set up your financial goals to get started.</p>
                     </div>
-                    <h2 class="onboarding__title" data-i18n="onboarding.welcome">Welcome to FinTrack</h2>
-                    <p class="onboarding__subtitle" data-i18n="onboarding.subtitle">Let's set up your financial goals to get started.</p>
                     
-                    <form id="form-onboarding" class="form">
+                    <div class="onboarding__right">
+                        <form id="form-onboarding" class="form">
                         <div class="form__group">
                             <label class="form__label" for="onboarding-name" data-i18n="onboarding.name">What's your name?</label>
                             <input type="text" id="onboarding-name" class="form__input" data-i18n="onboarding.name_ph" placeholder="e.g. Alex" required>
@@ -125,6 +128,7 @@
                         </div>
                         <button type="submit" class="btn btn--primary btn--block" data-i18n="onboarding.start">Start Tracking</button>
                     </form>
+                    </div>
                 </div>
             </section>
 

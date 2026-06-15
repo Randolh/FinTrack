@@ -16,9 +16,9 @@ const dictionary = {
         
         // Onboarding
         "onboarding.welcome": "Welcome to FinTrack",
-        "onboarding.subtitle": "Let's set up your financial goals to get started.",
+        "onboarding.subtitle": "Let's set up your initial data to get started.",
         "onboarding.name": "What's your name?",
-        "onboarding.name_ph": "e.g. Alex",
+        "onboarding.name_ph": "e.g. Randolh",
         "onboarding.salary": "Monthly Base Salary/Income",
         "onboarding.currency": "Preferred Currency",
         "onboarding.language": "Language",
@@ -125,7 +125,7 @@ const dictionary = {
         "nav.settings": "Ajustes",
         
         "onboarding.welcome": "Bienvenido a FinTrack",
-        "onboarding.subtitle": "Configuremos tus metas financieras para empezar.",
+        "onboarding.subtitle": "Configuremos tus datos iniciales para empezar.",
         "onboarding.name": "¿Cuál es tu nombre?",
         "onboarding.name_ph": "ej. Alex",
         "onboarding.salary": "Salario/Ingreso Base Mensual",

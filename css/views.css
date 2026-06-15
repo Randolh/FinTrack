@@ -46,16 +46,22 @@
     color: var(--color-text-primary);
 }
 
-/* Onboarding */
+/* Onboarding (Mobile First) */
 .onboarding {
     max-width: 400px;
     margin: 40px auto;
-    text-align: center;
     background-color: var(--color-surface);
-    padding: var(--spacing-2xl) var(--spacing-lg);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
     border: 1px solid var(--color-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.onboarding__left {
+    text-align: center;
+    padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-lg);
 }
 
 .onboarding__icon {
@@ -72,11 +78,56 @@
 
 .onboarding__subtitle {
     color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.onboarding__right {
+    padding: 0 var(--spacing-lg) var(--spacing-2xl);
 }
 
 .onboarding .form {
     text-align: left;
+}
+
+/* Desktop Onboarding Split Screen */
+@media (min-width: 768px) {
+    .onboarding {
+        max-width: 800px;
+        margin: 60px auto;
+        flex-direction: row;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .onboarding__left {
+        flex: 1;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--spacing-2xl);
+        margin-bottom: 0;
+    }
+
+    .onboarding__left .onboarding__icon,
+    .onboarding__left .onboarding__title,
+    .onboarding__left .onboarding__subtitle {
+        color: white;
+    }
+
+    .onboarding__left .onboarding__subtitle {
+        opacity: 0.9;
+    }
+
+    .onboarding__right {
+        flex: 1.2;
+        padding: var(--spacing-2xl) var(--spacing-2xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: var(--color-surface);
+    }
 }
 
 /* Dashboard Cards */
