@@ -41,19 +41,19 @@
                 <li class="nav__item">
                     <a href="#dashboard" class="nav__link active" data-view="dashboard">
                         <i class="fa-solid fa-chart-pie nav__icon"></i>
-                        <span class="nav__text">Dashboard</span>
+                        <span class="nav__text" data-i18n="nav.dashboard">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav__item">
                     <a href="#transactions" class="nav__link" data-view="transactions">
                         <i class="fa-solid fa-list-ul nav__icon"></i>
-                        <span class="nav__text">History</span>
+                        <span class="nav__text" data-i18n="nav.history">History</span>
                     </a>
                 </li>
                 <li class="nav__item">
                     <a href="#reflections" class="nav__link" data-view="reflections">
                         <i class="fa-solid fa-book-journal-whills nav__icon"></i>
-                        <span class="nav__text">Journal</span>
+                        <span class="nav__text" data-i18n="nav.journal">Journal</span>
                     </a>
                 </li>
                 <!-- Mobile Only Add Button -->
@@ -65,7 +65,7 @@
                 <li class="nav__item">
                     <a href="#settings" class="nav__link" data-view="settings">
                         <i class="fa-solid fa-gear nav__icon"></i>
-                        <span class="nav__text">Settings</span>
+                        <span class="nav__text" data-i18n="nav.settings">Settings</span>
                     </a>
                 </li>
             </ul>
@@ -79,22 +79,40 @@
                     <div class="onboarding__icon">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
-                    <h2 class="onboarding__title">Welcome to FinTrack</h2>
-                    <p class="onboarding__subtitle">Let's set up your financial goals to get started.</p>
+                    <h2 class="onboarding__title" data-i18n="onboarding.welcome">Welcome to FinTrack</h2>
+                    <p class="onboarding__subtitle" data-i18n="onboarding.subtitle">Let's set up your financial goals to get started.</p>
                     
                     <form id="form-onboarding" class="form">
                         <div class="form__group">
-                            <label class="form__label" for="onboarding-name">What's your name?</label>
-                            <input type="text" id="onboarding-name" class="form__input" placeholder="e.g. Alex" required>
+                            <label class="form__label" for="onboarding-name" data-i18n="onboarding.name">What's your name?</label>
+                            <input type="text" id="onboarding-name" class="form__input" data-i18n="onboarding.name_ph" placeholder="e.g. Alex" required>
                         </div>
                         <div class="form__group">
-                            <label class="form__label" for="onboarding-salary">Monthly Base Salary/Income</label>
+                            <label class="form__label" for="onboarding-salary" data-i18n="onboarding.salary">Monthly Base Salary/Income</label>
                             <div class="form__input-wrapper">
-                                <span class="form__input-prefix">$</span>
+                                <span class="form__input-prefix" id="onb-currency-sym">$</span>
                                 <input type="number" id="onboarding-salary" class="form__input form__input--with-prefix" placeholder="0.00" min="0" step="0.01" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn--primary btn--block">Start Tracking</button>
+                        <div class="form__row">
+                            <div class="form__group">
+                                <label class="form__label" for="onboarding-currency" data-i18n="onboarding.currency">Preferred Currency</label>
+                                <select id="onboarding-currency" class="form__input" required>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="MXN">MXN ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                </select>
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="onboarding-language" data-i18n="onboarding.language">Language</label>
+                                <select id="onboarding-language" class="form__input" required>
+                                    <option value="es">Español</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--block" data-i18n="onboarding.start">Start Tracking</button>
                     </form>
                 </div>
             </section>
@@ -148,10 +166,36 @@
                     </div>
                 </div>
 
-                <div class="dashboard-chart">
-                    <h3 class="section-title">Expenses by Category</h3>
-                    <div class="chart-container">
-                        <canvas id="categoryChart"></canvas>
+                <div class="dashboard-projections card" style="margin-bottom: var(--spacing-xl);">
+                    <h3 class="section-title" data-i18n="dash.projections">Projections</h3>
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--color-text-secondary);" data-i18n="dash.avg_daily">Avg. Daily Spend</span>
+                            <span id="proj-avg-daily" style="font-weight: 600;">$0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--color-text-secondary);" data-i18n="dash.proj_end">Projected End Balance</span>
+                            <span id="proj-end-balance" style="font-weight: 600;">$0.00</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--color-text-secondary);" data-i18n="dash.broke_in">Days until zero</span>
+                            <span id="proj-broke-in" style="font-weight: 600;">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="dashboard-chart" style="margin-bottom: var(--spacing-lg);">
+                        <h3 class="section-title" data-i18n="dash.expenses_category">Expenses by Category</h3>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dashboard-chart">
+                        <h3 class="section-title" data-i18n="dash.incomes_category">Incomes by Category</h3>
+                        <div class="chart-container">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -204,41 +248,63 @@
             <!-- Settings View -->
             <section id="view-settings" class="view">
                 <div class="view__header">
-                    <h2 class="view__title">Settings</h2>
+                    <h2 class="view__title" data-i18n="set.title">Settings</h2>
                 </div>
 
                 <div class="settings-group">
-                    <h3 class="settings-group__title">Profile</h3>
+                    <h3 class="settings-group__title" data-i18n="set.profile">Profile</h3>
                     <form id="form-settings-profile" class="form">
                         <div class="form__group">
-                            <label class="form__label" for="settings-name">Name</label>
+                            <label class="form__label" for="settings-name" data-i18n="set.name">Name</label>
                             <input type="text" id="settings-name" class="form__input" required>
                         </div>
                         <div class="form__group">
-                            <label class="form__label" for="settings-salary">Monthly Base Salary</label>
+                            <label class="form__label" for="settings-salary" data-i18n="set.salary">Monthly Base Salary</label>
                             <div class="form__input-wrapper">
-                                <span class="form__input-prefix">$</span>
+                                <span class="form__input-prefix" id="set-currency-sym">$</span>
                                 <input type="number" id="settings-salary" class="form__input form__input--with-prefix" min="0" step="0.01" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn--primary">Update Profile</button>
+                        <div class="form__row">
+                            <div class="form__group">
+                                <label class="form__label" for="settings-currency" data-i18n="set.currency">Currency</label>
+                                <select id="settings-currency" class="form__input" required>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="MXN">MXN ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                </select>
+                            </div>
+                            <div class="form__group">
+                                <label class="form__label" for="settings-language" data-i18n="set.language">Language</label>
+                                <select id="settings-language" class="form__input" required>
+                                    <option value="es">Español</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary" data-i18n="set.update">Update Profile</button>
                     </form>
                 </div>
 
                 <div class="settings-group">
-                    <h3 class="settings-group__title">Data Management</h3>
+                    <h3 class="settings-group__title" data-i18n="set.data">Data Management</h3>
                     <div class="settings-actions">
                         <button id="btn-export" class="btn btn--secondary btn--block">
-                            <i class="fa-solid fa-download"></i> Export Data (JSON)
+                            <i class="fa-solid fa-download"></i> <span data-i18n="set.export">Export Data (JSON)</span>
                         </button>
                         
                         <label for="input-import" class="btn btn--secondary btn--block btn--upload">
-                            <i class="fa-solid fa-upload"></i> Import Data
+                            <i class="fa-solid fa-upload"></i> <span data-i18n="set.import">Import Data</span>
                             <input type="file" id="input-import" accept=".json" class="hidden-input">
                         </label>
+
+                        <button id="btn-end-month" class="btn btn--warning btn--block mt-4">
+                            <i class="fa-solid fa-calendar-check"></i> <span data-i18n="set.end_month">End Month & Archive</span>
+                        </button>
                         
                         <button id="btn-reset" class="btn btn--danger btn--block mt-4">
-                            <i class="fa-solid fa-trash"></i> Reset All Data
+                            <i class="fa-solid fa-trash"></i> <span data-i18n="set.reset">Reset All Data</span>
                         </button>
                     </div>
                 </div>
@@ -251,56 +317,56 @@
         <div class="modal__overlay js-close-modal"></div>
         <div class="modal__content">
             <div class="modal__header">
-                <h3 class="modal__title">Add Record</h3>
+                <h3 class="modal__title" data-i18n="modal.tx.title">Add Record</h3>
                 <button class="btn-icon js-close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal__body">
                 <form id="form-transaction" class="form">
                     <div class="form__row">
                         <div class="form__group">
-                            <label class="form__label">Type</label>
+                            <label class="form__label" data-i18n="modal.tx.type">Type</label>
                             <div class="segmented-control">
                                 <input type="radio" id="type-expense" name="trans_type" value="expense" checked>
-                                <label for="type-expense">Expense</label>
+                                <label for="type-expense" data-i18n="modal.tx.expense">Expense</label>
                                 
                                 <input type="radio" id="type-income" name="trans_type" value="income">
-                                <label for="type-income">Income</label>
+                                <label for="type-income" data-i18n="modal.tx.income">Income</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form__group">
-                        <label class="form__label" for="trans-amount">Amount</label>
+                        <label class="form__label" for="trans-amount" data-i18n="modal.tx.amount">Amount</label>
                         <div class="form__input-wrapper">
-                            <span class="form__input-prefix">$</span>
+                            <span class="form__input-prefix" id="tx-currency-sym">$</span>
                             <input type="number" id="trans-amount" class="form__input form__input--with-prefix" placeholder="0.00" min="0.01" step="0.01" required>
                         </div>
                     </div>
 
                     <div class="form__group">
-                        <label class="form__label" for="trans-desc">Description</label>
-                        <input type="text" id="trans-desc" class="form__input" placeholder="e.g. Groceries" required>
+                        <label class="form__label" for="trans-desc" data-i18n="modal.tx.desc">Description</label>
+                        <input type="text" id="trans-desc" class="form__input" data-i18n="modal.tx.desc_ph" placeholder="e.g. Groceries" required>
                     </div>
 
                     <div class="form__row">
                         <div class="form__group">
-                            <label class="form__label" for="trans-date">Date</label>
+                            <label class="form__label" for="trans-date" data-i18n="modal.tx.date">Date</label>
                             <input type="date" id="trans-date" class="form__input" required>
                         </div>
                         <div class="form__group">
-                            <label class="form__label" for="trans-category">Category</label>
+                            <label class="form__label" for="trans-category" data-i18n="modal.tx.category">Category</label>
                             <select id="trans-category" class="form__input" required>
-                                <option value="food">🍔 Food</option>
-                                <option value="transport">🚗 Transport</option>
-                                <option value="utilities">⚡ Utilities</option>
-                                <option value="entertainment">🍿 Entertainment</option>
-                                <option value="shopping">🛍️ Shopping</option>
-                                <option value="other">📦 Other</option>
+                                <option value="food" data-i18n="cat.food">🍔 Food</option>
+                                <option value="transport" data-i18n="cat.transport">🚗 Transport</option>
+                                <option value="utilities" data-i18n="cat.utilities">⚡ Utilities</option>
+                                <option value="entertainment" data-i18n="cat.entertainment">🍿 Entertainment</option>
+                                <option value="shopping" data-i18n="cat.shopping">🛍️ Shopping</option>
+                                <option value="other" data-i18n="cat.other">📦 Other</option>
                             </select>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn--primary btn--block">Save Record</button>
+                    <button type="submit" class="btn btn--primary btn--block" data-i18n="modal.tx.save">Save Record</button>
                 </form>
             </div>
         </div>
@@ -311,29 +377,29 @@
         <div class="modal__overlay js-close-reflection-modal"></div>
         <div class="modal__content">
             <div class="modal__header">
-                <h3 class="modal__title">New Reflection</h3>
+                <h3 class="modal__title" data-i18n="modal.ref.title">New Reflection</h3>
                 <button class="btn-icon js-close-reflection-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal__body">
                 <form id="form-reflection" class="form">
                     <div class="form__group">
-                        <label class="form__label" for="ref-title">Title / Topic</label>
-                        <input type="text" id="ref-title" class="form__input" placeholder="e.g. Impulse buying today..." required>
+                        <label class="form__label" for="ref-title" data-i18n="modal.ref.topic">Title / Topic</label>
+                        <input type="text" id="ref-title" class="form__input" data-i18n="modal.ref.topic_ph" placeholder="e.g. Impulse buying today..." required>
                     </div>
                     <div class="form__group">
-                        <label class="form__label" for="ref-content">Your thoughts</label>
-                        <textarea id="ref-content" class="form__input" rows="4" placeholder="How did you feel about your expenses today?" required></textarea>
+                        <label class="form__label" for="ref-content" data-i18n="modal.ref.thoughts">Your thoughts</label>
+                        <textarea id="ref-content" class="form__input" rows="4" data-i18n="modal.ref.thoughts_ph" placeholder="How did you feel about your expenses today?" required></textarea>
                     </div>
                     <div class="form__group">
-                        <label class="form__label" for="ref-mood">Mood</label>
+                        <label class="form__label" for="ref-mood" data-i18n="modal.ref.mood">Mood</label>
                         <select id="ref-mood" class="form__input" required>
-                            <option value="happy">😊 Happy / Proud</option>
-                            <option value="neutral">😐 Neutral</option>
-                            <option value="sad">😔 Sad / Regretful</option>
-                            <option value="anxious">😰 Anxious / Stressed</option>
+                            <option value="happy" data-i18n="mood.happy">😊 Happy / Proud</option>
+                            <option value="neutral" data-i18n="mood.neutral">😐 Neutral</option>
+                            <option value="sad" data-i18n="mood.sad">😔 Sad / Regretful</option>
+                            <option value="anxious" data-i18n="mood.anxious">😰 Anxious / Stressed</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn--primary btn--block">Save Entry</button>
+                    <button type="submit" class="btn btn--primary btn--block" data-i18n="modal.ref.save">Save Entry</button>
                 </form>
             </div>
         </div>

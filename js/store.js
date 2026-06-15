@@ -8,13 +8,16 @@ const defaultData = {
     profile: {
         name: '',
         salary: 0,
+        currency: 'USD',
         isConfigured: false
     },
     settings: {
-        theme: 'light'
+        theme: 'light',
+        language: 'es'
     },
     transactions: [], // { id, type (expense|income), amount, desc, date, category }
-    reflections: [] // { id, title, content, mood, date }
+    reflections: [], // { id, title, content, mood, date }
+    archives: {} // { "YYYY-MM": { transactions: [], reflections: [] } }
 };
 
 export const store = {
@@ -45,10 +48,24 @@ export const store = {
         return this.data.profile;
     },
 
-    setProfile(name, salary) {
+    setProfile(name, salary, currency) {
         this.data.profile.name = name;
         this.data.profile.salary = parseFloat(salary);
+        if (currency) this.data.profile.currency = currency;
         this.data.profile.isConfigured = true;
+        this.save();
+    },
+
+    getCurrency() {
+        return this.data.profile.currency || 'USD';
+    },
+
+    getLanguage() {
+        return this.data.settings.language || 'es';
+    },
+
+    setLanguage(lang) {
+        this.data.settings.language = lang;
         this.save();
     },
 
@@ -99,6 +116,34 @@ export const store = {
 
     deleteReflection(id) {
         this.data.reflections = this.data.reflections.filter(r => r.id !== id);
+        this.save();
+    },
+    
+    archiveCurrentMonth() {
+        const d = new Date();
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (!this.data.archives) this.data.archives = {};
+        
+        // Append instead of overwrite in case they archive multiple times
+        if (!this.data.archives[key]) {
+            this.data.archives[key] = { transactions: [], reflections: [] };
+        }
+        
+        this.data.archives[key].transactions = [
+            ...this.data.archives[key].transactions,
+            ...this.data.transactions
+        ];
+        
+        this.data.archives[key].reflections = [
+            ...this.data.archives[key].reflections,
+            ...this.data.reflections
+        ];
+        
+        // Clear active records
+        this.data.transactions = [];
+        this.data.reflections = [];
+        
         this.save();
     },
 

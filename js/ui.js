@@ -4,7 +4,8 @@
 import { store } from './store.js';
 
 export const ui = {
-    chartInstance: null,
+    expenseChart: null,
+    incomeChart: null,
 
     init() {
         this.applyTheme(store.getTheme());
@@ -35,9 +36,8 @@ export const ui = {
                 this.applyTheme(newTheme);
                 
                 // Re-render chart if it exists to update colors
-                if (this.chartInstance) {
-                    this.chartInstance.update();
-                }
+                if (this.expenseChart) this.expenseChart.update();
+                if (this.incomeChart) this.incomeChart.update();
             });
         });
     },
@@ -120,13 +120,15 @@ export const ui = {
     },
 
     // --- Chart.js Wrapper ---
-    renderCategoryChart(canvasId, data) {
+    renderCategoryChart(canvasId, data, isIncome = false) {
         const ctx = document.getElementById(canvasId);
         if (!ctx) return;
 
         // Destroy previous instance
-        if (this.chartInstance) {
-            this.chartInstance.destroy();
+        if (!isIncome && this.expenseChart) {
+            this.expenseChart.destroy();
+        } else if (isIncome && this.incomeChart) {
+            this.incomeChart.destroy();
         }
 
         const labels = Object.keys(data).map(k => k.charAt(0).toUpperCase() + k.slice(1));
@@ -136,7 +138,7 @@ export const ui = {
         const textColor = isDark ? '#D1D5DB' : '#4B5563';
 
         // Colors palette
-        const colors = [
+        let colors = [
             '#3EB489', // Mint
             '#3B82F6', // Blue
             '#F59E0B', // Yellow
@@ -144,8 +146,17 @@ export const ui = {
             '#8B5CF6', // Purple
             '#10B981'  // Green
         ];
+        
+        if (isIncome) {
+            colors = [
+                '#10B981', // Green
+                '#059669', // Darker Green
+                '#34D399', // Light Green
+                '#6EE7B7'  // Lighter Green
+            ];
+        }
 
-        this.chartInstance = new Chart(ctx, {
+        const newChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: labels,
@@ -167,5 +178,11 @@ export const ui = {
                 }
             }
         });
+        
+        if (!isIncome) {
+            this.expenseChart = newChart;
+        } else {
+            this.incomeChart = newChart;
+        }
     }
 };

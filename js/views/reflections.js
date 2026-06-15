@@ -3,6 +3,7 @@
  */
 import { store } from '../store.js';
 import { ui } from '../ui.js';
+import { i18n } from '../i18n.js';
 
 export const reflectionsView = {
     init() {
@@ -36,7 +37,7 @@ export const reflectionsView = {
             const deleteBtn = e.target.closest('.js-delete-ref');
             if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
-                if(confirm('Are you sure you want to delete this reflection?')) {
+                if(confirm(i18n.t('alert.delete_ref'))) {
                     store.deleteReflection(id);
                     this.render();
                 }

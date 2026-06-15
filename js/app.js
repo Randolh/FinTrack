@@ -3,6 +3,7 @@
  */
 import { store } from './store.js';
 import { ui } from './ui.js';
+import { i18n } from './i18n.js';
 import { onboardingView } from './views/onboarding.js';
 import { dashboardView } from './views/dashboard.js';
 import { transactionsView } from './views/transactions.js';
@@ -15,6 +16,9 @@ const app = {
     init() {
         // Initialize Store
         store.init();
+        
+        // Translate DOM initially
+        i18n.translateDOM();
         
         // Initialize UI (Theme, Modals)
         ui.init();

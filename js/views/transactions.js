@@ -4,6 +4,7 @@
 import { store } from '../store.js';
 import { finance } from '../finance.js';
 import { ui } from '../ui.js';
+import { i18n } from '../i18n.js';
 
 export const transactionsView = {
     currentFilter: 'all',
@@ -56,7 +57,7 @@ export const transactionsView = {
             const deleteBtn = e.target.closest('.js-delete-tx');
             if (deleteBtn) {
                 const id = deleteBtn.dataset.id;
-                if(confirm('Are you sure you want to delete this record?')) {
+                if(confirm(i18n.t('alert.delete_tx'))) {
                     store.deleteTransaction(id);
                     this.renderList();
                 }

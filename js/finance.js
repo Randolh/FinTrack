@@ -39,15 +39,31 @@ export const finance = {
         const d = this.getToday();
         const daysInMonth = this.getDaysInMonth(d.getFullYear(), d.getMonth());
         
-        const daily = salary / daysInMonth;
+        // Find total fixed expenses (utilities) for the month
+        const txs = store.getTransactions();
+        const startOfMonth = this.getStartOfMonth();
+        const endOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59);
+        
+        let fixedExpenses = 0;
+        txs.forEach(tx => {
+            const txDate = this.parseDate(tx.date);
+            if (tx.type === 'expense' && tx.category === 'utilities' && txDate >= startOfMonth && txDate <= endOfMonth) {
+                fixedExpenses += tx.amount;
+            }
+        });
+        
+        // Daily and weekly are based on what's left after fixed expenses
+        const remainingBase = Math.max(0, salary - fixedExpenses);
+        
+        const daily = remainingBase / daysInMonth;
         const weekly = daily * 7;
         const monthly = salary; // Base salary is considered monthly
 
-        return { daily, weekly, monthly };
+        return { daily, weekly, monthly, fixedExpenses };
     },
 
-    // Get expenses/incomes within a date range
-    getTotalsForRange(startDate, endDate) {
+    // Get expenses/incomes within a date range (can exclude specific categories)
+    getTotalsForRange(startDate, endDate, excludeCategories = []) {
         const txs = store.getTransactions();
         let expenses = 0;
         let income = 0;
@@ -59,7 +75,7 @@ export const finance = {
         txs.forEach(tx => {
             const txDate = this.parseDate(tx.date);
             if (txDate >= startDate && txDate <= end) {
-                if (tx.type === 'expense') {
+                if (tx.type === 'expense' && !excludeCategories.includes(tx.category)) {
                     expenses += tx.amount;
                 } else if (tx.type === 'income') {
                     income += tx.amount;
@@ -77,8 +93,10 @@ export const finance = {
         const startOfWeek = this.getStartOfWeek();
         const startOfMonth = this.getStartOfMonth();
 
-        const todayTotals = this.getTotalsForRange(today, today);
-        const weekTotals = this.getTotalsForRange(startOfWeek, today);
+        // We exclude utilities from daily and weekly to match the budget subtraction
+        const todayTotals = this.getTotalsForRange(today, today, ['utilities']);
+        const weekTotals = this.getTotalsForRange(startOfWeek, today, ['utilities']);
+        // Monthly still shows all expenses against the full base salary
         const monthTotals = this.getTotalsForRange(startOfMonth, today);
 
         return {
@@ -106,11 +124,44 @@ export const finance = {
         };
     },
 
+    // Calculate projections based on current daily average
+    getProjections() {
+        const d = this.getToday();
+        const startOfMonth = this.getStartOfMonth();
+        
+        // Days passed in this month (including today)
+        const daysPassed = Math.max(1, Math.floor((d - startOfMonth) / (1000 * 60 * 60 * 24)) + 1);
+        
+        // Total spent this month excluding utilities
+        const spentSoFar = this.getTotalsForRange(startOfMonth, d, ['utilities']).expenses;
+        
+        // Average spent per day
+        const avgDaily = spentSoFar / daysPassed;
+        
+        const stats = this.getProgressStats();
+        const remainingMoney = stats.month.remaining;
+        
+        const daysInMonth = this.getDaysInMonth(d.getFullYear(), d.getMonth());
+        const daysLeft = daysInMonth - daysPassed;
+        
+        // Projected remaining at end of month
+        const projectedRemaining = remainingMoney - (avgDaily * daysLeft);
+        
+        // Days until zero
+        let daysUntilZero = -1;
+        if (avgDaily > 0) {
+            daysUntilZero = Math.floor(remainingMoney / avgDaily);
+        }
+        
+        return { avgDaily, projectedRemaining, daysUntilZero };
+    },
+
     // Format currency
     formatCurrency(amount) {
-        return new Intl.NumberFormat('en-US', {
+        const currency = store.getCurrency();
+        return new Intl.NumberFormat(store.getLanguage() || 'es', {
             style: 'currency',
-            currency: 'USD'
+            currency: currency
         }).format(amount);
     },
     
@@ -126,6 +177,26 @@ export const finance = {
             const txDate = this.parseDate(tx.date);
             if (tx.type === 'expense' && txDate >= startOfMonth && txDate <= endOfMonth) {
                 categories[tx.category] = (categories[tx.category] || 0) + tx.amount;
+            }
+        });
+        
+        return categories;
+    },
+    
+    // Group incomes by category for current month
+    getIncomesByCategory() {
+        const txs = store.getTransactions();
+        const startOfMonth = this.getStartOfMonth();
+        const endOfMonth = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth() + 1, 0, 23, 59, 59);
+        
+        const categories = {};
+        
+        txs.forEach(tx => {
+            const txDate = this.parseDate(tx.date);
+            if (tx.type === 'income' && txDate >= startOfMonth && txDate <= endOfMonth) {
+                // If there's no specific income category provided, group by 'Income' or default category name
+                let cat = tx.category || 'income';
+                categories[cat] = (categories[cat] || 0) + tx.amount;
             }
         });
         

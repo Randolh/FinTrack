@@ -2,6 +2,7 @@
  * Settings View
  */
 import { store } from '../store.js';
+import { i18n } from '../i18n.js';
 
 export const settingsView = {
     init(routerNavigate) {
@@ -11,18 +12,26 @@ export const settingsView = {
         this.btnExport = document.getElementById('btn-export');
         this.inputImport = document.getElementById('input-import');
         this.btnReset = document.getElementById('btn-reset');
+        this.btnEndMonth = document.getElementById('btn-end-month');
         
         this.bindEvents();
     },
 
     bindEvents() {
+        document.getElementById('settings-language').addEventListener('change', (e) => {
+            store.setLanguage(e.target.value);
+            i18n.translateDOM();
+        });
+
         this.formProfile.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('settings-name').value;
             const salary = document.getElementById('settings-salary').value;
+            const currency = document.getElementById('settings-currency').value;
             
-            store.setProfile(name, salary);
-            alert('Profile updated successfully!');
+            store.setProfile(name, salary, currency);
+            alert(i18n.t('alert.profile_updated'));
+            window.location.reload(); // Quick refresh to update symbols across app
         });
 
         this.btnExport.addEventListener('click', () => {
@@ -54,8 +63,15 @@ export const settingsView = {
             reader.readAsText(file);
         });
         
+        this.btnEndMonth.addEventListener('click', () => {
+            if(confirm(i18n.t('alert.end_month_warn'))) {
+                store.archiveCurrentMonth();
+                window.location.reload();
+            }
+        });
+        
         this.btnReset.addEventListener('click', () => {
-            if(confirm('WARNING: This will delete all your data permanently. Are you sure?')) {
+            if(confirm(i18n.t('alert.reset_warn'))) {
                 store.resetData();
                 window.location.reload();
             }
@@ -66,5 +82,7 @@ export const settingsView = {
         const profile = store.getProfile();
         document.getElementById('settings-name').value = profile.name || '';
         document.getElementById('settings-salary').value = profile.salary || '';
+        document.getElementById('settings-currency').value = store.getCurrency();
+        document.getElementById('settings-language').value = store.getLanguage();
     }
 };

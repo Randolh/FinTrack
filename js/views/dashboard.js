@@ -4,6 +4,7 @@
 import { store } from '../store.js';
 import { finance } from '../finance.js';
 import { ui } from '../ui.js';
+import { i18n } from '../i18n.js';
 
 export const dashboardView = {
     init() {
@@ -11,14 +12,24 @@ export const dashboardView = {
         this.elName = document.getElementById('dash-name');
         this.elBalance = document.getElementById('dash-balance');
         this.elSalary = document.getElementById('dash-salary');
+        
+        // Projection elements
+        this.elProjAvg = document.getElementById('proj-avg-daily');
+        this.elProjEnd = document.getElementById('proj-end-balance');
+        this.elProjBroke = document.getElementById('proj-broke-in');
     },
 
     render() {
         const profile = store.getProfile();
-        this.elName.textContent = profile.name;
-        this.elSalary.textContent = finance.formatCurrency(profile.salary);
+        
+        const helloTxt = i18n.t('dash.hello');
+        this.elName.textContent = `${helloTxt} ${profile.name} 👋`;
+        
+        const salaryFormatted = finance.formatCurrency(profile.salary);
+        this.elSalary.innerHTML = i18n.t('dash.of_base', salaryFormatted);
 
         this.updateProgress();
+        this.updateProjections();
         this.updateChart();
     },
 
@@ -48,18 +59,41 @@ export const dashboardView = {
             }
         });
     },
+    
+    updateProjections() {
+        const proj = finance.getProjections();
+        
+        this.elProjAvg.textContent = finance.formatCurrency(proj.avgDaily);
+        
+        this.elProjEnd.textContent = finance.formatCurrency(proj.projectedRemaining);
+        if (proj.projectedRemaining < 0) {
+            this.elProjEnd.style.color = 'var(--color-danger)';
+        } else {
+            this.elProjEnd.style.color = 'var(--color-text-primary)';
+        }
+        
+        if (proj.daysUntilZero === -1 || proj.daysUntilZero > 31) {
+            this.elProjBroke.textContent = '> 1 mes';
+        } else {
+            this.elProjBroke.textContent = `${proj.daysUntilZero} días`;
+        }
+    },
 
     updateChart() {
         const expenses = finance.getExpensesByCategory();
-        
-        if (Object.keys(expenses).length === 0) {
-            // Provide empty data or hide chart
-            const container = document.querySelector('.dashboard-chart');
-            if(container) container.style.display = 'none';
+        if (Object.keys(expenses).length > 0) {
+            ui.renderCategoryChart('categoryChart', expenses, false);
+            document.getElementById('categoryChart').parentElement.style.display = 'block';
         } else {
-            const container = document.querySelector('.dashboard-chart');
-            if(container) container.style.display = 'block';
-            ui.renderCategoryChart('categoryChart', expenses);
+            document.getElementById('categoryChart').parentElement.style.display = 'none';
+        }
+
+        const incomes = finance.getIncomesByCategory();
+        if (Object.keys(incomes).length > 0) {
+            ui.renderCategoryChart('incomeChart', incomes, true);
+            document.getElementById('incomeChart').parentElement.style.display = 'block';
+        } else {
+            document.getElementById('incomeChart').parentElement.style.display = 'none';
         }
     }
 };
