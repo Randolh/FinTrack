@@ -80,7 +80,7 @@ export const transactionsView = {
             this.listEl.innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-receipt empty-state__icon"></i>
-                    <p class="empty-state__text">No records found.</p>
+                    <p class="empty-state__text">${i18n.t('hist.empty')}</p>
                 </div>
             `;
             return;

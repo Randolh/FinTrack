@@ -121,24 +121,24 @@
             <!-- Dashboard View -->
             <section id="view-dashboard" class="view">
                 <div class="view__header">
-                    <h2 class="view__title">Hello, <span id="dash-name">User</span> 👋</h2>
-                    <p class="view__subtitle">Here's your financial summary.</p>
+                    <h2 class="view__title"><span data-i18n="dash.hello">Hello,</span> <span id="dash-name">User</span> 👋</h2>
+                    <p class="view__subtitle" data-i18n="dash.subtitle">Here's your financial summary.</p>
                 </div>
 
                 <div class="dashboard-cards">
                     <div class="card card--balance">
-                        <h3 class="card__title">Current Balance</h3>
+                        <h3 class="card__title" data-i18n="dash.balance">Current Balance</h3>
                         <p class="card__amount" id="dash-balance">$0.00</p>
-                        <p class="card__meta">of <span id="dash-salary">$0.00</span> monthly base</p>
+                        <p class="card__meta" id="dash-salary">of $0.00 monthly base</p>
                     </div>
                 </div>
 
                 <div class="dashboard-progress">
-                    <h3 class="section-title">Budget Usage</h3>
+                    <h3 class="section-title" data-i18n="dash.budget_usage">Budget Usage</h3>
                     
                     <div class="progress-item">
                         <div class="progress-item__header">
-                            <span class="progress-item__label">Today</span>
+                            <span class="progress-item__label" data-i18n="dash.today">Today</span>
                             <span class="progress-item__value" id="prog-day-val">$0 / $0</span>
                         </div>
                         <div class="progress-bar">
@@ -148,7 +148,7 @@
 
                     <div class="progress-item">
                         <div class="progress-item__header">
-                            <span class="progress-item__label">This Week</span>
+                            <span class="progress-item__label" data-i18n="dash.this_week">This Week</span>
                             <span class="progress-item__value" id="prog-week-val">$0 / $0</span>
                         </div>
                         <div class="progress-bar">
@@ -158,7 +158,7 @@
 
                     <div class="progress-item">
                         <div class="progress-item__header">
-                            <span class="progress-item__label">This Month</span>
+                            <span class="progress-item__label" data-i18n="dash.this_month">This Month</span>
                             <span class="progress-item__value" id="prog-month-val">$0 / $0</span>
                         </div>
                         <div class="progress-bar">
@@ -204,23 +204,23 @@
             <!-- Transactions View -->
             <section id="view-transactions" class="view">
                 <div class="view__header view__header--flex">
-                    <h2 class="view__title">History</h2>
+                    <h2 class="view__title" data-i18n="hist.title">History</h2>
                     <button class="btn btn--primary btn--small js-open-add-modal desktop-only">
-                        <i class="fa-solid fa-plus"></i> Add
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="hist.add">Add</span>
                     </button>
                 </div>
 
                 <div class="transaction-filters">
-                    <button class="filter-chip filter-chip--active" data-filter="all">All</button>
-                    <button class="filter-chip" data-filter="expense">Expenses</button>
-                    <button class="filter-chip" data-filter="income">Incomes</button>
+                    <button class="filter-chip filter-chip--active" data-filter="all" data-i18n="hist.all">All</button>
+                    <button class="filter-chip" data-filter="expense" data-i18n="hist.expenses">Expenses</button>
+                    <button class="filter-chip" data-filter="income" data-i18n="hist.incomes">Incomes</button>
                 </div>
 
                 <div class="transaction-list" id="transaction-list">
                     <!-- Transactions will be injected here -->
                     <div class="empty-state">
                         <i class="fa-solid fa-receipt empty-state__icon"></i>
-                        <p class="empty-state__text">No transactions yet.</p>
+                        <p class="empty-state__text" data-i18n="hist.empty">No transactions yet.</p>
                     </div>
                 </div>
             </section>
@@ -229,11 +229,11 @@
             <section id="view-reflections" class="view">
                 <div class="view__header view__header--flex">
                     <div>
-                        <h2 class="view__title">Financial Journal</h2>
-                        <p class="view__subtitle">Reflect on your spending decisions and emotions.</p>
+                        <h2 class="view__title" data-i18n="journ.title">Financial Journal</h2>
+                        <p class="view__subtitle" data-i18n="journ.subtitle">Reflect on your spending decisions and emotions.</p>
                     </div>
                     <button class="btn btn--primary btn--small js-open-add-reflection-modal">
-                        <i class="fa-solid fa-plus"></i> Add
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="hist.add">Add</span>
                     </button>
                 </div>
 
@@ -241,7 +241,7 @@
                     <!-- Reflections will be injected here -->
                     <div class="empty-state">
                         <i class="fa-solid fa-book-open empty-state__icon"></i>
-                        <p class="empty-state__text">No reflections yet. Start journaling!</p>
+                        <p class="empty-state__text" data-i18n="journ.empty">No reflections yet. Start journaling!</p>
                     </div>
                 </div>
             </section>

@@ -56,7 +56,7 @@ export const reflectionsView = {
             this.listEl.innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-book-open empty-state__icon"></i>
-                    <p class="empty-state__text">No reflections yet. Start journaling!</p>
+                    <p class="empty-state__text">${i18n.t('journ.empty')}</p>
                 </div>
             `;
             return;

@@ -22,8 +22,7 @@ export const dashboardView = {
     render() {
         const profile = store.getProfile();
         
-        const helloTxt = i18n.t('dash.hello');
-        this.elName.textContent = `${helloTxt} ${profile.name} 👋`;
+        this.elName.textContent = profile.name;
         
         const salaryFormatted = finance.formatCurrency(profile.salary);
         this.elSalary.innerHTML = i18n.t('dash.of_base', salaryFormatted);
