@@ -2,6 +2,7 @@
  * Reflections / Journal View
  */
 import { store } from '../store.js';
+import { ui } from '../ui.js';
 
 export const reflectionsView = {
     init() {
@@ -22,8 +23,9 @@ export const reflectionsView = {
 
             store.addReflection({ title, content, mood });
             
-            // Reset form
+            // Reset form and close modal
             this.form.reset();
+            ui.closeAddReflectionModal();
             
             // Refresh list
             this.render();
