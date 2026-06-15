@@ -6,6 +6,7 @@ import { ui } from './ui.js';
 import { onboardingView } from './views/onboarding.js';
 import { dashboardView } from './views/dashboard.js';
 import { transactionsView } from './views/transactions.js';
+import { reflectionsView } from './views/reflections.js';
 import { settingsView } from './views/settings.js';
 
 const app = {
@@ -22,6 +23,7 @@ const app = {
         onboardingView.init((v) => this.navigate(v));
         dashboardView.init();
         transactionsView.init();
+        reflectionsView.init();
         settingsView.init((v) => this.navigate(v));
         
         this.setupRouter();
@@ -33,7 +35,7 @@ const app = {
         } else {
             // Check hash or default to dashboard
             const hash = window.location.hash.replace('#', '');
-            if (['dashboard', 'transactions', 'settings'].includes(hash)) {
+            if (['dashboard', 'transactions', 'reflections', 'settings'].includes(hash)) {
                 this.navigate(hash);
             } else {
                 this.navigate('dashboard');
@@ -61,7 +63,7 @@ const app = {
                 return;
             }
             
-            if (['dashboard', 'transactions', 'settings'].includes(hash)) {
+            if (['dashboard', 'transactions', 'reflections', 'settings'].includes(hash)) {
                 this.navigate(hash, false);
             }
         });
@@ -110,6 +112,9 @@ const app = {
                 break;
             case 'transactions':
                 transactionsView.render();
+                break;
+            case 'reflections':
+                reflectionsView.render();
                 break;
             case 'settings':
                 settingsView.render();

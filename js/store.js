@@ -13,7 +13,8 @@ const defaultData = {
     settings: {
         theme: 'light'
     },
-    transactions: [] // { id, type (expense|income), amount, desc, date, category }
+    transactions: [], // { id, type (expense|income), amount, desc, date, category }
+    reflections: [] // { id, title, content, mood, date }
 };
 
 export const store = {
@@ -81,6 +82,26 @@ export const store = {
         this.save();
     },
 
+    getReflections() {
+        return [...this.data.reflections].sort((a, b) => new Date(b.date) - new Date(a.date));
+    },
+
+    addReflection(reflection) {
+        const newRef = {
+            id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+            ...reflection,
+            date: new Date().toISOString()
+        };
+        this.data.reflections.push(newRef);
+        this.save();
+        return newRef;
+    },
+
+    deleteReflection(id) {
+        this.data.reflections = this.data.reflections.filter(r => r.id !== id);
+        this.save();
+    },
+
     exportData() {
         return JSON.stringify(this.data, null, 2);
     },
@@ -89,6 +110,7 @@ export const store = {
         try {
             const parsed = JSON.parse(jsonString);
             if (parsed && parsed.profile && parsed.transactions) {
+                if (!parsed.reflections) parsed.reflections = []; // Ensure backwards compatibility
                 this.data = parsed;
                 this.save();
                 return true;

@@ -50,6 +50,12 @@
                         <span class="nav__text">History</span>
                     </a>
                 </li>
+                <li class="nav__item">
+                    <a href="#reflections" class="nav__link" data-view="reflections">
+                        <i class="fa-solid fa-book-journal-whills nav__icon"></i>
+                        <span class="nav__text">Journal</span>
+                    </a>
+                </li>
                 <!-- Mobile Only Add Button -->
                 <li class="nav__item nav__item--fab">
                     <a href="#add" class="nav__link nav__link--fab js-open-add-modal">
@@ -170,6 +176,49 @@
                     <div class="empty-state">
                         <i class="fa-solid fa-receipt empty-state__icon"></i>
                         <p class="empty-state__text">No transactions yet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reflections View -->
+            <section id="view-reflections" class="view">
+                <div class="view__header">
+                    <h2 class="view__title">Financial Journal</h2>
+                    <p class="view__subtitle">Reflect on your spending decisions and emotions.</p>
+                </div>
+
+                <div class="card" style="margin-bottom: var(--spacing-xl);">
+                    <form id="form-reflection" class="form">
+                        <div class="form__group">
+                            <label class="form__label" for="ref-title">Title / Topic</label>
+                            <input type="text" id="ref-title" class="form__input" placeholder="e.g. Impulse buying today..." required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="ref-content">Your thoughts</label>
+                            <textarea id="ref-content" class="form__input" rows="4" placeholder="How did you feel about your expenses today?" required></textarea>
+                        </div>
+                        <div class="form__row">
+                            <div class="form__group">
+                                <label class="form__label" for="ref-mood">Mood</label>
+                                <select id="ref-mood" class="form__input" required>
+                                    <option value="happy">😊 Happy / Proud</option>
+                                    <option value="neutral">😐 Neutral</option>
+                                    <option value="sad">😔 Sad / Regretful</option>
+                                    <option value="anxious">😰 Anxious / Stressed</option>
+                                </select>
+                            </div>
+                            <div class="form__group" style="display:flex; align-items:flex-end;">
+                                <button type="submit" class="btn btn--primary btn--block">Save Entry</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="reflection-list" id="reflection-list">
+                    <!-- Reflections will be injected here -->
+                    <div class="empty-state">
+                        <i class="fa-solid fa-book-open empty-state__icon"></i>
+                        <p class="empty-state__text">No reflections yet. Start journaling!</p>
                     </div>
                 </div>
             </section>
