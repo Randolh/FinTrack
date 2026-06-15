@@ -39,6 +39,8 @@ const dictionary = {
         "dash.this_month": "This Month",
         "dash.expenses_category": "Expenses by Category",
         "dash.incomes_category": "Incomes by Category",
+        "dash.no_expenses": "No expenses yet.",
+        "dash.no_incomes": "No incomes yet.",
         
         // History
         "hist.title": "History",
@@ -142,17 +144,19 @@ const dictionary = {
         "dash.this_month": "Este Mes",
         "dash.expenses_category": "Gastos por Categoría",
         "dash.incomes_category": "Ingresos por Categoría",
+        "dash.no_expenses": "Aún no tienes gastos.",
+        "dash.no_incomes": "Aún no tienes ingresos.",
         
         "hist.title": "Historial",
         "hist.add": "Añadir",
         "hist.all": "Todos",
         "hist.expenses": "Gastos",
         "hist.incomes": "Ingresos",
-        "hist.empty": "Sin transacciones aún.",
+        "hist.empty": "Aún no tienes transacciones.",
         
         "journ.title": "Diario Financiero",
         "journ.subtitle": "Reflexiona sobre tus decisiones de gasto y emociones.",
-        "journ.empty": "Sin reflexiones aún. ¡Empieza a escribir!",
+        "journ.empty": "Aún no tienes reflexiones. ¡Empieza a escribir!",
         
         "set.title": "Ajustes",
         "set.profile": "Perfil",

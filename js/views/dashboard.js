@@ -80,19 +80,31 @@ export const dashboardView = {
 
     updateChart() {
         const expenses = finance.getExpensesByCategory();
+        const canvasExp = document.getElementById('categoryChart');
+        const emptyExp = document.getElementById('categoryChartEmpty');
+        
         if (Object.keys(expenses).length > 0) {
+            canvasExp.style.display = 'block';
+            emptyExp.style.display = 'none';
             ui.renderCategoryChart('categoryChart', expenses, false);
-            document.getElementById('categoryChart').parentElement.style.display = 'block';
         } else {
-            document.getElementById('categoryChart').parentElement.style.display = 'none';
+            canvasExp.style.display = 'none';
+            emptyExp.style.display = 'block';
+            if (ui.expenseChart) { ui.expenseChart.destroy(); ui.expenseChart = null; }
         }
 
         const incomes = finance.getIncomesByCategory();
+        const canvasInc = document.getElementById('incomeChart');
+        const emptyInc = document.getElementById('incomeChartEmpty');
+        
         if (Object.keys(incomes).length > 0) {
+            canvasInc.style.display = 'block';
+            emptyInc.style.display = 'none';
             ui.renderCategoryChart('incomeChart', incomes, true);
-            document.getElementById('incomeChart').parentElement.style.display = 'block';
         } else {
-            document.getElementById('incomeChart').parentElement.style.display = 'none';
+            canvasInc.style.display = 'none';
+            emptyInc.style.display = 'block';
+            if (ui.incomeChart) { ui.incomeChart.destroy(); ui.incomeChart = null; }
         }
     }
 };

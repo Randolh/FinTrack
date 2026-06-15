@@ -188,14 +188,16 @@
                 <div class="dashboard-charts">
                     <div class="dashboard-chart" style="margin-bottom: var(--spacing-lg);">
                         <h3 class="section-title" data-i18n="dash.expenses_category">Expenses by Category</h3>
-                        <div class="chart-container">
+                        <div class="chart-container" style="position: relative; min-height: 200px;">
                             <canvas id="categoryChart"></canvas>
+                            <p id="categoryChartEmpty" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--color-text-secondary); text-align: center; margin: 0; width: 100%;" data-i18n="dash.no_expenses">No expenses yet.</p>
                         </div>
                     </div>
                     <div class="dashboard-chart">
                         <h3 class="section-title" data-i18n="dash.incomes_category">Incomes by Category</h3>
-                        <div class="chart-container">
+                        <div class="chart-container" style="position: relative; min-height: 200px;">
                             <canvas id="incomeChart"></canvas>
+                            <p id="incomeChartEmpty" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--color-text-secondary); text-align: center; margin: 0; width: 100%;" data-i18n="dash.no_incomes">No incomes yet.</p>
                         </div>
                     </div>
                 </div>
