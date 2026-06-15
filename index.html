@@ -182,36 +182,14 @@
 
             <!-- Reflections View -->
             <section id="view-reflections" class="view">
-                <div class="view__header">
-                    <h2 class="view__title">Financial Journal</h2>
-                    <p class="view__subtitle">Reflect on your spending decisions and emotions.</p>
-                </div>
-
-                <div class="card" style="margin-bottom: var(--spacing-xl);">
-                    <form id="form-reflection" class="form">
-                        <div class="form__group">
-                            <label class="form__label" for="ref-title">Title / Topic</label>
-                            <input type="text" id="ref-title" class="form__input" placeholder="e.g. Impulse buying today..." required>
-                        </div>
-                        <div class="form__group">
-                            <label class="form__label" for="ref-content">Your thoughts</label>
-                            <textarea id="ref-content" class="form__input" rows="4" placeholder="How did you feel about your expenses today?" required></textarea>
-                        </div>
-                        <div class="form__row">
-                            <div class="form__group">
-                                <label class="form__label" for="ref-mood">Mood</label>
-                                <select id="ref-mood" class="form__input" required>
-                                    <option value="happy">😊 Happy / Proud</option>
-                                    <option value="neutral">😐 Neutral</option>
-                                    <option value="sad">😔 Sad / Regretful</option>
-                                    <option value="anxious">😰 Anxious / Stressed</option>
-                                </select>
-                            </div>
-                            <div class="form__group" style="display:flex; align-items:flex-end;">
-                                <button type="submit" class="btn btn--primary btn--block">Save Entry</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="view__header view__header--flex">
+                    <div>
+                        <h2 class="view__title">Financial Journal</h2>
+                        <p class="view__subtitle">Reflect on your spending decisions and emotions.</p>
+                    </div>
+                    <button class="btn btn--primary btn--small js-open-add-reflection-modal">
+                        <i class="fa-solid fa-plus"></i> Add
+                    </button>
                 </div>
 
                 <div class="reflection-list" id="reflection-list">
@@ -323,6 +301,39 @@
                     </div>
 
                     <button type="submit" class="btn btn--primary btn--block">Save Record</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Reflection Modal -->
+    <div class="modal" id="modal-add-reflection">
+        <div class="modal__overlay js-close-reflection-modal"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="modal__title">New Reflection</h3>
+                <button class="btn-icon js-close-reflection-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal__body">
+                <form id="form-reflection" class="form">
+                    <div class="form__group">
+                        <label class="form__label" for="ref-title">Title / Topic</label>
+                        <input type="text" id="ref-title" class="form__input" placeholder="e.g. Impulse buying today..." required>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__label" for="ref-content">Your thoughts</label>
+                        <textarea id="ref-content" class="form__input" rows="4" placeholder="How did you feel about your expenses today?" required></textarea>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__label" for="ref-mood">Mood</label>
+                        <select id="ref-mood" class="form__input" required>
+                            <option value="happy">😊 Happy / Proud</option>
+                            <option value="neutral">😐 Neutral</option>
+                            <option value="sad">😔 Sad / Regretful</option>
+                            <option value="anxious">😰 Anxious / Stressed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--block">Save Entry</button>
                 </form>
             </div>
         </div>

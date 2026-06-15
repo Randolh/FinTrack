@@ -70,28 +70,53 @@ export const ui = {
 
     // --- Modals ---
     setupModals() {
-        const openBtns = document.querySelectorAll('.js-open-add-modal');
-        const closeBtns = document.querySelectorAll('.js-close-modal');
-        const modal = document.getElementById('modal-add');
+        // Transaction Modal
+        const openBtnsTx = document.querySelectorAll('.js-open-add-modal');
+        const closeBtnsTx = document.querySelectorAll('.js-close-modal');
+        const modalTx = document.getElementById('modal-add');
 
-        openBtns.forEach(btn => {
+        openBtnsTx.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                modal.classList.add('active');
-                document.getElementById('trans-date').valueAsDate = new Date(); // set default date
+                modalTx.classList.add('active');
+                const dateInput = document.getElementById('trans-date');
+                if (dateInput) dateInput.valueAsDate = new Date();
             });
         });
 
-        closeBtns.forEach(btn => {
+        closeBtnsTx.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                modal.classList.remove('active');
+                modalTx.classList.remove('active');
+            });
+        });
+
+        // Reflection Modal
+        const openBtnsRef = document.querySelectorAll('.js-open-add-reflection-modal');
+        const closeBtnsRef = document.querySelectorAll('.js-close-reflection-modal');
+        const modalRef = document.getElementById('modal-add-reflection');
+
+        openBtnsRef.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modalRef.classList.add('active');
+            });
+        });
+
+        closeBtnsRef.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modalRef.classList.remove('active');
             });
         });
     },
 
     closeAddModal() {
         document.getElementById('modal-add').classList.remove('active');
+    },
+
+    closeAddReflectionModal() {
+        document.getElementById('modal-add-reflection').classList.remove('active');
     },
 
     // --- Chart.js Wrapper ---
