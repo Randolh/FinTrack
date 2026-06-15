@@ -6,6 +6,8 @@
 .view {
     display: none;
     animation: fadeIn var(--transition-normal);
+    max-width: var(--max-width);
+    margin: 0 auto;
 }
 
 .view--active {

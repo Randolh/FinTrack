@@ -50,8 +50,6 @@
     padding: var(--spacing-md);
     padding-bottom: calc(var(--nav-height-mobile) + var(--spacing-md));
     width: 100%;
-    max-width: var(--max-width);
-    margin: 0 auto;
 }
 
 /* Navigation (Mobile First - Bottom Bar) */
@@ -337,15 +335,16 @@
 
     .main-content {
         margin-left: var(--nav-width-desktop);
+        width: calc(100% - var(--nav-width-desktop));
         padding: var(--spacing-xl);
         padding-bottom: var(--spacing-xl); /* Remove mobile bottom padding */
-        transition: margin-left var(--transition-normal);
+        transition: margin-left var(--transition-normal), width var(--transition-normal);
     }
 
     .nav.hidden + .main-content,
     .nav--hidden + .main-content {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 0;
+        width: 100%;
     }
 
     .desktop-only {
