@@ -13,6 +13,7 @@ const dictionary = {
         "nav.history": "History",
         "nav.journal": "Journal",
         "nav.settings": "Settings",
+        "nav.created_by": "Created by Randolh",
         
         // Onboarding
         "onboarding.welcome": "Welcome to FinTrack",
@@ -123,6 +124,7 @@ const dictionary = {
         "nav.history": "Historial",
         "nav.journal": "Diario",
         "nav.settings": "Ajustes",
+        "nav.created_by": "Creado por Randolh",
         
         "onboarding.welcome": "Bienvenido a FinTrack",
         "onboarding.subtitle": "Configuremos tus datos iniciales para empezar.",
