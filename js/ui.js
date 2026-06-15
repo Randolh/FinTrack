@@ -11,6 +11,7 @@ export const ui = {
         this.applyTheme(store.getTheme());
         this.setupThemeToggle();
         this.setupModals();
+        this.updateCurrencySymbols();
     },
 
     // --- Theming ---
@@ -117,6 +118,18 @@ export const ui = {
 
     closeAddReflectionModal() {
         document.getElementById('modal-add-reflection').classList.remove('active');
+    },
+
+    updateCurrencySymbols() {
+        const currency = store.getCurrency();
+        let sym = '$';
+        if (currency === 'EUR') sym = '€';
+        if (currency === 'GBP') sym = '£';
+        
+        const prefixes = document.querySelectorAll('.form__input-prefix');
+        prefixes.forEach(el => {
+            el.textContent = sym;
+        });
     },
 
     // --- Chart.js Wrapper ---

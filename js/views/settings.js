@@ -3,6 +3,7 @@
  */
 import { store } from '../store.js';
 import { i18n } from '../i18n.js';
+import { ui } from '../ui.js';
 
 export const settingsView = {
     init(routerNavigate) {
@@ -21,6 +22,14 @@ export const settingsView = {
         document.getElementById('settings-language').addEventListener('change', (e) => {
             store.setLanguage(e.target.value);
             i18n.translateDOM();
+        });
+
+        document.getElementById('settings-currency').addEventListener('change', (e) => {
+            // Update temporarily to reflect in UI
+            const currentName = store.data.profile.name;
+            const currentSalary = store.data.profile.salary;
+            store.setProfile(currentName, currentSalary, e.target.value);
+            ui.updateCurrencySymbols();
         });
 
         this.formProfile.addEventListener('submit', (e) => {
