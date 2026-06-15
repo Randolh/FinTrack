@@ -1,0 +1,220 @@
+/* ==========================================================================
+   Layout Styles (Header, Nav, App Shell)
+   ========================================================================== */
+
+/* Header */
+.header {
+    height: var(--header-height);
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-md);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.header__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.header__logo {
+    font-size: 1.5rem;
+}
+
+.header__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: -0.025em;
+}
+
+/* App Shell Layout */
+.app-layout {
+    padding-top: var(--header-height);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    padding: var(--spacing-md);
+    padding-bottom: calc(var(--nav-height-mobile) + var(--spacing-md));
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* Navigation (Mobile First - Bottom Bar) */
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height-mobile);
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    z-index: 40;
+    box-shadow: 0 -4px 6px -1px var(--shadow-color);
+    transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.nav__list {
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 var(--spacing-sm);
+}
+
+.nav__item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-md);
+}
+
+.nav__icon {
+    font-size: 1.25rem;
+    transition: transform var(--transition-fast);
+}
+
+.nav__text {
+    font-size: 0.65rem;
+    font-weight: 500;
+}
+
+.nav__link:hover, 
+.nav__link.active {
+    color: var(--color-primary);
+}
+
+.nav__link.active .nav__icon {
+    transform: translateY(-2px);
+}
+
+/* Floating Action Button (Mobile Nav) */
+.nav__item--fab {
+    position: relative;
+    top: -20px;
+}
+
+.nav__link--fab {
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-full);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(62, 180, 137, 0.4);
+}
+
+.nav__link--fab:hover {
+    background-color: var(--color-primary-dark);
+    color: white;
+    transform: scale(1.05);
+}
+
+.nav__link--fab .fa-plus {
+    font-size: 1.5rem;
+}
+
+.desktop-only {
+    display: none;
+}
+
+/* Tablet & Desktop Layout */
+@media (min-width: 768px) {
+    .app-layout {
+        flex-direction: row;
+        padding-top: var(--header-height);
+    }
+
+    .header {
+        z-index: 60; /* Above sidebar */
+    }
+
+    /* Side Navigation */
+    .nav {
+        position: fixed;
+        top: var(--header-height);
+        bottom: 0;
+        left: 0;
+        width: var(--nav-width-desktop);
+        height: calc(100vh - var(--header-height));
+        border-top: none;
+        border-right: 1px solid var(--color-border);
+        box-shadow: none;
+    }
+
+    .nav__list {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: var(--spacing-md) 0;
+        gap: var(--spacing-sm);
+    }
+
+    .nav__item {
+        width: 100%;
+        flex: none;
+    }
+
+    .nav__item--fab {
+        display: none; /* Hide FAB on desktop */
+    }
+
+    .nav__link {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        border-radius: 0;
+        border-left: 3px solid transparent;
+        gap: var(--spacing-md);
+    }
+
+    .nav__text {
+        font-size: var(--font-size-base);
+    }
+
+    .nav__link.active {
+        background-color: var(--color-primary-light);
+        border-left-color: var(--color-primary);
+    }
+    
+    .nav__link.active .nav__icon {
+        transform: none;
+    }
+
+    .main-content {
+        margin-left: var(--nav-width-desktop);
+        padding: var(--spacing-xl);
+        padding-bottom: var(--spacing-xl); /* Remove mobile bottom padding */
+    }
+
+    .desktop-only {
+        display: inline-flex;
+    }
+}

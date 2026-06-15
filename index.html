@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FinTrack - Smart Financial Tracking</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/views.css">
+</head>
+<body class="theme-light">
+    <!-- Top App Bar (Mobile) / Header (Desktop) -->
+    <header class="header">
+        <div class="header__brand">
+            <i class="fa-solid fa-leaf header__logo"></i>
+            <h1 class="header__title">FinTrack</h1>
+        </div>
+        <div class="header__actions">
+            <button class="btn-icon js-theme-toggle" aria-label="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Application Layout -->
+    <div class="app-layout">
+        <!-- Side/Bottom Navigation -->
+        <nav class="nav js-nav hidden">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="#dashboard" class="nav__link active" data-view="dashboard">
+                        <i class="fa-solid fa-chart-pie nav__icon"></i>
+                        <span class="nav__text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a href="#transactions" class="nav__link" data-view="transactions">
+                        <i class="fa-solid fa-list-ul nav__icon"></i>
+                        <span class="nav__text">History</span>
+                    </a>
+                </li>
+                <!-- Mobile Only Add Button -->
+                <li class="nav__item nav__item--fab">
+                    <a href="#add" class="nav__link nav__link--fab js-open-add-modal">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                </li>
+                <li class="nav__item">
+                    <a href="#settings" class="nav__link" data-view="settings">
+                        <i class="fa-solid fa-gear nav__icon"></i>
+                        <span class="nav__text">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Onboarding View -->
+            <section id="view-onboarding" class="view view--active">
+                <div class="onboarding">
+                    <div class="onboarding__icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <h2 class="onboarding__title">Welcome to FinTrack</h2>
+                    <p class="onboarding__subtitle">Let's set up your financial goals to get started.</p>
+                    
+                    <form id="form-onboarding" class="form">
+                        <div class="form__group">
+                            <label class="form__label" for="onboarding-name">What's your name?</label>
+                            <input type="text" id="onboarding-name" class="form__input" placeholder="e.g. Alex" required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="onboarding-salary">Monthly Base Salary/Income</label>
+                            <div class="form__input-wrapper">
+                                <span class="form__input-prefix">$</span>
+                                <input type="number" id="onboarding-salary" class="form__input form__input--with-prefix" placeholder="0.00" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--block">Start Tracking</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="view">
+                <div class="view__header">
+                    <h2 class="view__title">Hello, <span id="dash-name">User</span> 👋</h2>
+                    <p class="view__subtitle">Here's your financial summary.</p>
+                </div>
+
+                <div class="dashboard-cards">
+                    <div class="card card--balance">
+                        <h3 class="card__title">Current Balance</h3>
+                        <p class="card__amount" id="dash-balance">$0.00</p>
+                        <p class="card__meta">of <span id="dash-salary">$0.00</span> monthly base</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-progress">
+                    <h3 class="section-title">Budget Usage</h3>
+                    
+                    <div class="progress-item">
+                        <div class="progress-item__header">
+                            <span class="progress-item__label">Today</span>
+                            <span class="progress-item__value" id="prog-day-val">$0 / $0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill" id="prog-day-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-item__header">
+                            <span class="progress-item__label">This Week</span>
+                            <span class="progress-item__value" id="prog-week-val">$0 / $0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill" id="prog-week-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-item__header">
+                            <span class="progress-item__label">This Month</span>
+                            <span class="progress-item__value" id="prog-month-val">$0 / $0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-bar__fill" id="prog-month-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-chart">
+                    <h3 class="section-title">Expenses by Category</h3>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions View -->
+            <section id="view-transactions" class="view">
+                <div class="view__header view__header--flex">
+                    <h2 class="view__title">History</h2>
+                    <button class="btn btn--primary btn--small js-open-add-modal desktop-only">
+                        <i class="fa-solid fa-plus"></i> Add
+                    </button>
+                </div>
+
+                <div class="transaction-filters">
+                    <button class="filter-chip filter-chip--active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="expense">Expenses</button>
+                    <button class="filter-chip" data-filter="income">Incomes</button>
+                </div>
+
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Transactions will be injected here -->
+                    <div class="empty-state">
+                        <i class="fa-solid fa-receipt empty-state__icon"></i>
+                        <p class="empty-state__text">No transactions yet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings View -->
+            <section id="view-settings" class="view">
+                <div class="view__header">
+                    <h2 class="view__title">Settings</h2>
+                </div>
+
+                <div class="settings-group">
+                    <h3 class="settings-group__title">Profile</h3>
+                    <form id="form-settings-profile" class="form">
+                        <div class="form__group">
+                            <label class="form__label" for="settings-name">Name</label>
+                            <input type="text" id="settings-name" class="form__input" required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="settings-salary">Monthly Base Salary</label>
+                            <div class="form__input-wrapper">
+                                <span class="form__input-prefix">$</span>
+                                <input type="number" id="settings-salary" class="form__input form__input--with-prefix" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn--primary">Update Profile</button>
+                    </form>
+                </div>
+
+                <div class="settings-group">
+                    <h3 class="settings-group__title">Data Management</h3>
+                    <div class="settings-actions">
+                        <button id="btn-export" class="btn btn--secondary btn--block">
+                            <i class="fa-solid fa-download"></i> Export Data (JSON)
+                        </button>
+                        
+                        <label for="input-import" class="btn btn--secondary btn--block btn--upload">
+                            <i class="fa-solid fa-upload"></i> Import Data
+                            <input type="file" id="input-import" accept=".json" class="hidden-input">
+                        </label>
+                        
+                        <button id="btn-reset" class="btn btn--danger btn--block mt-4">
+                            <i class="fa-solid fa-trash"></i> Reset All Data
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Transaction Modal -->
+    <div class="modal" id="modal-add">
+        <div class="modal__overlay js-close-modal"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="modal__title">Add Record</h3>
+                <button class="btn-icon js-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal__body">
+                <form id="form-transaction" class="form">
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label class="form__label">Type</label>
+                            <div class="segmented-control">
+                                <input type="radio" id="type-expense" name="trans_type" value="expense" checked>
+                                <label for="type-expense">Expense</label>
+                                
+                                <input type="radio" id="type-income" name="trans_type" value="income">
+                                <label for="type-income">Income</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label class="form__label" for="trans-amount">Amount</label>
+                        <div class="form__input-wrapper">
+                            <span class="form__input-prefix">$</span>
+                            <input type="number" id="trans-amount" class="form__input form__input--with-prefix" placeholder="0.00" min="0.01" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form__group">
+                        <label class="form__label" for="trans-desc">Description</label>
+                        <input type="text" id="trans-desc" class="form__input" placeholder="e.g. Groceries" required>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label class="form__label" for="trans-date">Date</label>
+                            <input type="date" id="trans-date" class="form__input" required>
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="trans-category">Category</label>
+                            <select id="trans-category" class="form__input" required>
+                                <option value="food">🍔 Food</option>
+                                <option value="transport">🚗 Transport</option>
+                                <option value="utilities">⚡ Utilities</option>
+                                <option value="entertainment">🍿 Entertainment</option>
+                                <option value="shopping">🛍️ Shopping</option>
+                                <option value="other">📦 Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--block">Save Record</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
