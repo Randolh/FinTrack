@@ -44,6 +44,16 @@
     color: white;
 }
 
+.btn--warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--color-warning);
+}
+
+.btn--warning:hover {
+    background-color: var(--color-warning);
+    color: white;
+}
+
 .btn--block {
     width: 100%;
 }
