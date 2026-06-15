@@ -17,6 +17,7 @@ export const dashboardView = {
         this.elProjAvg = document.getElementById('proj-avg-daily');
         this.elProjEnd = document.getElementById('proj-end-balance');
         this.elProjBroke = document.getElementById('proj-broke-in');
+        this.elProjExplanation = document.getElementById('proj-explanation');
     },
 
     render() {
@@ -71,10 +72,13 @@ export const dashboardView = {
             this.elProjEnd.style.color = 'var(--color-text-primary)';
         }
         
+        const avgFormatted = finance.formatCurrency(proj.avgDaily);
         if (proj.daysUntilZero === -1 || proj.daysUntilZero > 31) {
             this.elProjBroke.textContent = '> 1 mes';
+            this.elProjExplanation.textContent = i18n.t('dash.proj_explanation_safe', avgFormatted);
         } else {
             this.elProjBroke.textContent = `${proj.daysUntilZero} días`;
+            this.elProjExplanation.textContent = i18n.t('dash.proj_explanation', avgFormatted, proj.daysUntilZero.toString());
         }
     },
 
