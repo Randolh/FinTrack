@@ -8,12 +8,12 @@ const defaultData = {
     profile: {
         name: '',
         salary: 0,
-        currency: 'USD',
+        currency: 'GTQ',
         isConfigured: false
     },
     settings: {
         theme: 'light',
-        language: 'es'
+        language: 'en'
     },
     transactions: [], // { id, type (expense|income), amount, desc, date, category }
     reflections: [], // { id, title, content, mood, date }
