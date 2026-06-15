@@ -362,3 +362,23 @@
     cursor: pointer;
     text-align: center;
 }
+
+.settings-footer {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md) 0;
+}
+
+.settings-footer__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.settings-footer__link:hover {
+    color: var(--color-primary);
+}
