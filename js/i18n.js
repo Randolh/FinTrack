@@ -72,6 +72,7 @@ const dictionary = {
         "set.export": "Export Data (JSON)",
         "set.import": "Import Data",
         "set.end_month": "End Month & Archive",
+        "set.clear_progress": "Clear Current Progress",
         "set.reset": "Reset All Data",
         
         // Modals - Transaction
@@ -114,6 +115,8 @@ const dictionary = {
         "alert.import_success": "Data imported successfully!",
         "alert.import_error": "Error importing data. Invalid file format.",
         "alert.end_month_warn": "This will archive current month's transactions and start a new month. Proceed?",
+        "alert.end_month_error": "You have already archived this month. Wait until next month to archive again.",
+        "alert.clear_progress_warn": "This will delete all your current month's transactions and reflections. Archives and settings will be preserved. Proceed?",
         "alert.reset_warn": "WARNING: This will delete all your data permanently. Are you sure?",
         "alert.delete_tx": "Are you sure you want to delete this record?",
         "alert.delete_ref": "Are you sure you want to delete this reflection?"
@@ -179,6 +182,7 @@ const dictionary = {
         "set.export": "Exportar Datos (JSON)",
         "set.import": "Importar Datos",
         "set.end_month": "Cerrar Mes y Archivar",
+        "set.clear_progress": "Limpiar Progreso Actual",
         "set.reset": "Borrar Todos los Datos",
         
         "modal.tx.title": "Añadir Registro",
@@ -216,6 +220,8 @@ const dictionary = {
         "alert.import_success": "¡Datos importados con éxito!",
         "alert.import_error": "Error importando datos. Formato de archivo inválido.",
         "alert.end_month_warn": "Esto archivará las transacciones del mes actual e iniciará un nuevo mes. ¿Proceder?",
+        "alert.end_month_error": "Ya has archivado los datos de este mes. Debes esperar al próximo mes para archivar nuevamente.",
+        "alert.clear_progress_warn": "Esto borrará todas tus transacciones y reflexiones actuales. Los archivos históricos y los ajustes se conservarán. ¿Proceder?",
         "alert.reset_warn": "ADVERTENCIA: Esto borrará todos tus datos permanentemente. ¿Estás seguro?",
         "alert.delete_tx": "¿Estás seguro de que deseas borrar este registro?",
         "alert.delete_ref": "¿Estás seguro de que deseas borrar esta reflexión?"

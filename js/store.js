@@ -125,7 +125,11 @@ export const store = {
         
         if (!this.data.archives) this.data.archives = {};
         
-        // Append instead of overwrite in case they archive multiple times
+        // Check if already archived
+        if (this.data.archives[key] && (this.data.archives[key].transactions.length > 0 || this.data.archives[key].reflections.length > 0)) {
+            return false;
+        }
+        
         if (!this.data.archives[key]) {
             this.data.archives[key] = { transactions: [], reflections: [] };
         }
@@ -144,6 +148,13 @@ export const store = {
         this.data.transactions = [];
         this.data.reflections = [];
         
+        this.save();
+        return true;
+    },
+
+    clearCurrentProgress() {
+        this.data.transactions = [];
+        this.data.reflections = [];
         this.save();
     },
 

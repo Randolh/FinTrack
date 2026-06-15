@@ -14,6 +14,7 @@ export const settingsView = {
         this.inputImport = document.getElementById('input-import');
         this.btnReset = document.getElementById('btn-reset');
         this.btnEndMonth = document.getElementById('btn-end-month');
+        this.btnClearProgress = document.getElementById('btn-clear-progress');
         
         this.bindEvents();
     },
@@ -74,7 +75,18 @@ export const settingsView = {
         
         this.btnEndMonth.addEventListener('click', () => {
             if(confirm(i18n.t('alert.end_month_warn'))) {
-                store.archiveCurrentMonth();
+                const success = store.archiveCurrentMonth();
+                if (success === false) {
+                    alert(i18n.t('alert.end_month_error'));
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+        
+        this.btnClearProgress.addEventListener('click', () => {
+            if(confirm(i18n.t('alert.clear_progress_warn'))) {
+                store.clearCurrentProgress();
                 window.location.reload();
             }
         });
