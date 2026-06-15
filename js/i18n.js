@@ -133,7 +133,7 @@ const dictionary = {
         "onboarding.welcome": "Bienvenido a FinTrack",
         "onboarding.subtitle": "Configuremos tus datos iniciales para empezar.",
         "onboarding.name": "¿Cuál es tu nombre?",
-        "onboarding.name_ph": "ej. Alex",
+        "onboarding.name_ph": "ej. Randolh",
         "onboarding.salary": "Salario/Ingreso Base Mensual",
         "onboarding.currency": "Moneda Preferida",
         "onboarding.language": "Idioma",
