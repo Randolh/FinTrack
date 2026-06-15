@@ -85,6 +85,7 @@ const dictionary = {
         "modal.tx.desc_ph": "e.g. Groceries",
         "modal.tx.date": "Date",
         "modal.tx.category": "Category",
+        "modal.tx.is_daily": "Count towards Daily",
         "modal.tx.save": "Save Record",
         
         // Modals - Reflection
@@ -194,6 +195,7 @@ const dictionary = {
         "modal.tx.desc_ph": "ej. Supermercado",
         "modal.tx.date": "Fecha",
         "modal.tx.category": "Categoría",
+        "modal.tx.is_daily": "Contar como Gasto Diario",
         "modal.tx.save": "Guardar Registro",
         
         "modal.ref.title": "Nueva Reflexión",

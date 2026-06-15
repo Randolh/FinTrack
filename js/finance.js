@@ -39,7 +39,7 @@ export const finance = {
         const d = this.getToday();
         const daysInMonth = this.getDaysInMonth(d.getFullYear(), d.getMonth());
         
-        // Find total fixed expenses (utilities) for the month
+        // Find total fixed expenses (non-daily) for the month
         const txs = store.getTransactions();
         const startOfMonth = this.getStartOfMonth();
         const endOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59, 59);
@@ -47,7 +47,8 @@ export const finance = {
         let fixedExpenses = 0;
         txs.forEach(tx => {
             const txDate = this.parseDate(tx.date);
-            if (tx.type === 'expense' && tx.category === 'utilities' && txDate >= startOfMonth && txDate <= endOfMonth) {
+            const isNonDaily = tx.isDaily === false; // backward compatibility: undefined is true
+            if (tx.type === 'expense' && isNonDaily && txDate >= startOfMonth && txDate <= endOfMonth) {
                 fixedExpenses += tx.amount;
             }
         });
@@ -62,8 +63,8 @@ export const finance = {
         return { daily, weekly, monthly, fixedExpenses };
     },
 
-    // Get expenses/incomes within a date range (can exclude specific categories)
-    getTotalsForRange(startDate, endDate, excludeCategories = []) {
+    // Get expenses/incomes within a date range
+    getTotalsForRange(startDate, endDate, onlyDailyExpenses = false) {
         const txs = store.getTransactions();
         let expenses = 0;
         let income = 0;
@@ -75,8 +76,11 @@ export const finance = {
         txs.forEach(tx => {
             const txDate = this.parseDate(tx.date);
             if (txDate >= startDate && txDate <= end) {
-                if (tx.type === 'expense' && !excludeCategories.includes(tx.category)) {
-                    expenses += tx.amount;
+                if (tx.type === 'expense') {
+                    const isDaily = tx.isDaily !== false; // backward compatibility
+                    if (!onlyDailyExpenses || isDaily) {
+                        expenses += tx.amount;
+                    }
                 } else if (tx.type === 'income') {
                     income += tx.amount;
                 }
@@ -93,11 +97,11 @@ export const finance = {
         const startOfWeek = this.getStartOfWeek();
         const startOfMonth = this.getStartOfMonth();
 
-        // We exclude utilities from daily and weekly to match the budget subtraction
-        const todayTotals = this.getTotalsForRange(today, today, ['utilities']);
-        const weekTotals = this.getTotalsForRange(startOfWeek, today, ['utilities']);
+        // We only include daily expenses for daily and weekly to match the budget subtraction
+        const todayTotals = this.getTotalsForRange(today, today, true);
+        const weekTotals = this.getTotalsForRange(startOfWeek, today, true);
         // Monthly still shows all expenses against the full base salary
-        const monthTotals = this.getTotalsForRange(startOfMonth, today);
+        const monthTotals = this.getTotalsForRange(startOfMonth, today, false);
 
         return {
             day: {
@@ -132,8 +136,8 @@ export const finance = {
         // Days passed in this month (including today)
         const daysPassed = Math.max(1, Math.floor((d - startOfMonth) / (1000 * 60 * 60 * 24)) + 1);
         
-        // Total spent this month excluding utilities
-        const spentSoFar = this.getTotalsForRange(startOfMonth, d, ['utilities']).expenses;
+        // Total spent this month excluding fixed expenses
+        const spentSoFar = this.getTotalsForRange(startOfMonth, d, true).expenses;
         
         // Average spent per day
         const avgDaily = spentSoFar / daysPassed;

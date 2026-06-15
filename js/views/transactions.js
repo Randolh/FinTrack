@@ -26,8 +26,9 @@ export const transactionsView = {
             const desc = document.getElementById('trans-desc').value;
             const date = document.getElementById('trans-date').value;
             const category = document.getElementById('trans-category').value;
+            const isDaily = document.getElementById('trans-is-daily').checked;
 
-            store.addTransaction({ type, amount, desc, date, category });
+            store.addTransaction({ type, amount, desc, date, category, isDaily });
             
             // Reset form and close modal
             this.form.reset();
@@ -39,6 +40,19 @@ export const transactionsView = {
             // If we are actually on dashboard, this event might be fired globally. 
             // The router could handle broadcasting an update, but for simplicity, 
             // since this is a SPA, we just re-render current view or ensure dashboard gets updated when visited.
+        });
+
+        // Hide daily toggle if income is selected
+        const typeRadios = document.querySelectorAll('input[name="trans_type"]');
+        const dailyWrapper = document.getElementById('trans-daily-wrapper');
+        typeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'income') {
+                    dailyWrapper.style.display = 'none';
+                } else {
+                    dailyWrapper.style.display = 'block';
+                }
+            });
         });
 
         // Filters
