@@ -62,6 +62,7 @@ const dictionary = {
         // Settings
         "set.title": "Settings",
         "set.profile": "Profile",
+        "set.preferences": "Preferences",
         "set.name": "Name",
         "set.salary": "Monthly Base Salary",
         "set.currency": "Currency",
@@ -168,6 +169,7 @@ const dictionary = {
         
         "set.title": "Ajustes",
         "set.profile": "Perfil",
+        "set.preferences": "Preferencias",
         "set.name": "Nombre",
         "set.salary": "Salario Base Mensual",
         "set.currency": "Moneda",
