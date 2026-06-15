@@ -42,6 +42,9 @@ const dictionary = {
         "dash.no_expenses": "No expenses yet.",
         "dash.no_incomes": "No incomes yet.",
         
+        "fab.tx": "Add Transaction",
+        "fab.ref": "Add Reflection",
+        
         // History
         "hist.title": "History",
         "hist.add": "Add",
@@ -146,6 +149,9 @@ const dictionary = {
         "dash.incomes_category": "Ingresos por Categoría",
         "dash.no_expenses": "Aún no tienes gastos.",
         "dash.no_incomes": "Aún no tienes ingresos.",
+
+        "fab.tx": "Añadir Registro",
+        "fab.ref": "Añadir Reflexión",
         
         "hist.title": "Historial",
         "hist.add": "Añadir",

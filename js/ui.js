@@ -12,6 +12,7 @@ export const ui = {
         this.applyTheme(store.getTheme());
         this.setupThemeToggle();
         this.setupModals();
+        this.setupFab();
         this.updateCurrencySymbols();
     },
 
@@ -67,6 +68,34 @@ export const ui = {
             nav.classList.remove('hidden');
         } else {
             nav.classList.add('hidden');
+        }
+    },
+    
+    setupFab() {
+        const fabToggle = document.querySelector('.js-fab-toggle');
+        const fabContainer = document.querySelector('.js-fab-container');
+        
+        if (fabToggle && fabContainer) {
+            fabToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // prevent document click
+                fabContainer.classList.toggle('active');
+            });
+            
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!fabContainer.contains(e.target)) {
+                    fabContainer.classList.remove('active');
+                }
+            });
+            
+            // Close when clicking an option
+            const options = fabContainer.querySelectorAll('.fab-menu__item');
+            options.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    fabContainer.classList.remove('active');
+                });
+            });
         }
     },
 

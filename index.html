@@ -56,11 +56,21 @@
                         <span class="nav__text" data-i18n="nav.journal">Journal</span>
                     </a>
                 </li>
-                <!-- Mobile Only Add Button -->
-                <li class="nav__item nav__item--fab">
-                    <a href="#add" class="nav__link nav__link--fab js-open-add-modal">
+                <!-- Global Add Button (FAB) -->
+                <li class="nav__item nav__item--fab js-fab-container">
+                    <button class="nav__link nav__link--fab js-fab-toggle" aria-label="Add options">
                         <i class="fa-solid fa-plus"></i>
-                    </a>
+                    </button>
+                    <div class="fab-menu">
+                        <button class="fab-menu__item js-open-add-modal">
+                            <span class="fab-menu__label" data-i18n="fab.tx">Add Transaction</span>
+                            <div class="fab-menu__icon"><i class="fa-solid fa-receipt"></i></div>
+                        </button>
+                        <button class="fab-menu__item js-open-add-reflection-modal">
+                            <span class="fab-menu__label" data-i18n="fab.ref">Add Reflection</span>
+                            <div class="fab-menu__icon"><i class="fa-solid fa-book-open"></i></div>
+                        </button>
+                    </div>
                 </li>
                 <li class="nav__item">
                     <a href="#settings" class="nav__link" data-view="settings">
