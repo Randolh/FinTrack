@@ -100,6 +100,13 @@ export const transactionsView = {
             const amountClass = tx.type === 'income' ? 'income' : 'expense';
             const sign = tx.type === 'income' ? '+' : '-';
             const formattedDate = new Date(tx.date + 'T12:00:00').toLocaleDateString();
+            let translatedCat = i18n.t(`cat.${tx.category}`);
+            if (translatedCat === `cat.${tx.category}`) {
+                translatedCat = tx.category.charAt(0).toUpperCase() + tx.category.slice(1);
+            } else {
+                // Remove emoji
+                translatedCat = translatedCat.replace(/[\u1000-\uFFFF]+/g, '').trim();
+            }
 
             return `
                 <div class="transaction-item">
@@ -109,7 +116,7 @@ export const transactionsView = {
                         </div>
                         <div class="transaction-item__details">
                             <span class="transaction-item__title">${tx.desc}</span>
-                            <span class="transaction-item__date">${formattedDate} &bull; <span style="text-transform:capitalize">${tx.category}</span></span>
+                            <span class="transaction-item__date">${formattedDate} &bull; <span style="text-transform:capitalize">${translatedCat}</span></span>
                         </div>
                     </div>
                     <div class="transaction-item__right" style="display:flex; align-items:center; gap: 10px;">
