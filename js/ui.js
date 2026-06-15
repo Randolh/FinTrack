@@ -125,6 +125,7 @@ export const ui = {
         let sym = '$';
         if (currency === 'EUR') sym = '€';
         if (currency === 'GBP') sym = '£';
+        if (currency === 'GTQ') sym = 'Q';
         
         const prefixes = document.querySelectorAll('.form__input-prefix');
         prefixes.forEach(el => {
