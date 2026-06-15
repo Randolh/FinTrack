@@ -2,6 +2,7 @@
  * UI Utilities (Theme, DOM helpers)
  */
 import { store } from './store.js';
+import { i18n } from './i18n.js';
 
 export const ui = {
     expenseChart: null,
@@ -145,7 +146,13 @@ export const ui = {
             this.incomeChart.destroy();
         }
 
-        const labels = Object.keys(data).map(k => k.charAt(0).toUpperCase() + k.slice(1));
+        const labels = Object.keys(data).map(k => {
+            const translated = i18n.t(`cat.${k}`);
+            if (translated === `cat.${k}`) {
+                return k.charAt(0).toUpperCase() + k.slice(1);
+            }
+            return translated.replace(/[\u1000-\uFFFF]+/g, '').trim();
+        });
         const values = Object.values(data);
 
         const isDark = store.getTheme() === 'dark';
