@@ -96,12 +96,18 @@ export const finance = {
         const today = this.getToday();
         const startOfWeek = this.getStartOfWeek();
         const startOfMonth = this.getStartOfMonth();
+        
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(endOfWeek.getDate() + 6);
+        endOfWeek.setHours(23, 59, 59, 999);
+        
+        const endOfMonth = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth() + 1, 0, 23, 59, 59);
 
         // We only include daily expenses for daily and weekly to match the budget subtraction
         const todayTotals = this.getTotalsForRange(today, today, true);
-        const weekTotals = this.getTotalsForRange(startOfWeek, today, true);
+        const weekTotals = this.getTotalsForRange(startOfWeek, endOfWeek, true);
         // Monthly still shows all expenses against the full base salary
-        const monthTotals = this.getTotalsForRange(startOfMonth, today, false);
+        const monthTotals = this.getTotalsForRange(startOfMonth, endOfMonth, false);
 
         return {
             day: {
