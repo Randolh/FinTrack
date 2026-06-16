@@ -113,6 +113,12 @@ const dictionary = {
         "cat.emergency": "🚨 Emergency",
         "cat.health": "🏥 Health",
         "cat.payments": "💳 Payments",
+        "cat.salary": "💼 Salary",
+        "cat.business": "📈 Business / Sales",
+        "cat.freelance": "🛠️ Freelance / Services",
+        "cat.investments": "💹 Investments",
+        "cat.gifts": "🎁 Gifts",
+        "cat.refunds": "↩️ Refunds",
         "cat.other": "📦 Other",
         
         // Moods
@@ -231,6 +237,12 @@ const dictionary = {
         "cat.emergency": "🚨 Emergencia",
         "cat.health": "🏥 Salud",
         "cat.payments": "💳 Pagos",
+        "cat.salary": "💼 Salario",
+        "cat.business": "📈 Negocios / Ventas",
+        "cat.freelance": "🛠️ Trabajos / Servicios",
+        "cat.investments": "💹 Inversiones",
+        "cat.gifts": "🎁 Regalos",
+        "cat.refunds": "↩️ Reembolsos",
         "cat.other": "📦 Otro",
         
         "mood.happy": "😊 Feliz / Orgulloso",

@@ -42,15 +42,64 @@ export const transactionsView = {
             // since this is a SPA, we just re-render current view or ensure dashboard gets updated when visited.
         });
 
-        // Hide daily toggle if income is selected
+        const updateCategoryOptions = (type) => {
+            const select = document.getElementById('trans-category');
+            if (!select) return;
+            select.innerHTML = '';
+            
+            let cats = [];
+            if (type === 'income') {
+                cats = [
+                    { value: 'salary', i18n: 'cat.salary', text: '💼 Salary' },
+                    { value: 'business', i18n: 'cat.business', text: '📈 Business / Sales' },
+                    { value: 'freelance', i18n: 'cat.freelance', text: '🛠️ Freelance / Services' },
+                    { value: 'investments', i18n: 'cat.investments', text: '💹 Investments' },
+                    { value: 'gifts', i18n: 'cat.gifts', text: '🎁 Gifts' },
+                    { value: 'refunds', i18n: 'cat.refunds', text: '↩️ Refunds' },
+                    { value: 'other', i18n: 'cat.other', text: '📦 Other' }
+                ];
+            } else {
+                cats = [
+                    { value: 'food', i18n: 'cat.food', text: '🍔 Food' },
+                    { value: 'transport', i18n: 'cat.transport', text: '🚗 Transport' },
+                    { value: 'utilities', i18n: 'cat.utilities', text: '⚡ Utilities' },
+                    { value: 'entertainment', i18n: 'cat.entertainment', text: '🍿 Entertainment' },
+                    { value: 'shopping', i18n: 'cat.shopping', text: '🛍️ Shopping' },
+                    { value: 'education', i18n: 'cat.education', text: '🎓 Education' },
+                    { value: 'savings', i18n: 'cat.savings', text: '💰 Savings' },
+                    { value: 'emergency', i18n: 'cat.emergency', text: '🚨 Emergency' },
+                    { value: 'health', i18n: 'cat.health', text: '🏥 Health' },
+                    { value: 'payments', i18n: 'cat.payments', text: '💳 Payments' },
+                    { value: 'other', i18n: 'cat.other', text: '📦 Other' }
+                ];
+            }
+            
+            cats.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.value;
+                opt.setAttribute('data-i18n', c.i18n);
+                opt.textContent = c.text;
+                select.appendChild(opt);
+            });
+            
+            i18n.translateDOM();
+        };
+
+        // Hide daily toggle if income is selected and update categories
         const typeRadios = document.querySelectorAll('input[name="trans_type"]');
         const dailyWrapper = document.getElementById('trans-daily-wrapper');
+        
+        updateCategoryOptions(document.querySelector('input[name="trans_type"]:checked')?.value || 'expense');
+        
         typeRadios.forEach(radio => {
             radio.addEventListener('change', (e) => {
-                if (e.target.value === 'income') {
-                    dailyWrapper.style.display = 'none';
+                const type = e.target.value;
+                if (type === 'income') {
+                    if (dailyWrapper) dailyWrapper.style.display = 'none';
+                    updateCategoryOptions('income');
                 } else {
-                    dailyWrapper.style.display = 'block';
+                    if (dailyWrapper) dailyWrapper.style.display = 'block';
+                    updateCategoryOptions('expense');
                 }
             });
         });
@@ -106,6 +155,17 @@ export const transactionsView = {
             utilities: 'fa-bolt',
             entertainment: 'fa-film',
             shopping: 'fa-bag-shopping',
+            education: 'fa-graduation-cap',
+            savings: 'fa-piggy-bank',
+            emergency: 'fa-truck-medical',
+            health: 'fa-house-medical',
+            payments: 'fa-credit-card',
+            salary: 'fa-briefcase',
+            business: 'fa-chart-line',
+            freelance: 'fa-laptop-code',
+            investments: 'fa-arrow-trend-up',
+            gifts: 'fa-gift',
+            refunds: 'fa-rotate-left',
             other: 'fa-box'
         };
 
