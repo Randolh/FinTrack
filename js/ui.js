@@ -3,6 +3,7 @@
  */
 import { store } from './store.js';
 import { i18n } from './i18n.js';
+import { finance } from './finance.js';
 
 export const ui = {
     expenseChart: null,
@@ -175,14 +176,20 @@ export const ui = {
             this.incomeChart.destroy();
         }
 
-        const labels = Object.keys(data).map(k => {
-            const translated = i18n.t(`cat.${k}`);
-            if (translated === `cat.${k}`) {
-                return k.charAt(0).toUpperCase() + k.slice(1);
-            }
-            return translated.replace(/[\u1000-\uFFFF]+/g, '').trim();
-        });
         const values = Object.values(data);
+        const total = values.reduce((sum, val) => sum + val, 0);
+
+        const labels = Object.keys(data).map((k, index) => {
+            let name = k.charAt(0).toUpperCase() + k.slice(1);
+            const translated = i18n.t(`cat.${k}`);
+            if (translated !== `cat.${k}`) {
+                name = translated.replace(/[\u1000-\uFFFF]+/g, '').trim();
+            }
+            const val = values[index];
+            const percent = total > 0 ? Math.round((val / total) * 100) : 0;
+            const formattedVal = finance.formatCurrency(val);
+            return `${name} - ${percent}% (${formattedVal})`;
+        });
 
         const isDark = store.getTheme() === 'dark';
         const textColor = isDark ? '#D1D5DB' : '#4B5563';
