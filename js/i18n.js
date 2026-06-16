@@ -104,6 +104,7 @@ const dictionary = {
         "modal.tx.save": "Save Record",
         "modal.tx.necessity": "Necessity",
         
+        "nec.necessary": "🔵 Necessary",
         "nec.indispensable": "🟢 Indispensable",
         "nec.important": "🟡 Important",
         "nec.non_essential": "🟠 Non-essential",
@@ -247,6 +248,7 @@ const dictionary = {
         "modal.tx.save": "Guardar Registro",
         "modal.tx.necessity": "Nivel de Necesidad",
         
+        "nec.necessary": "🔵 Necesario",
         "nec.indispensable": "🟢 Indispensable",
         "nec.important": "🟡 Importante",
         "nec.non_essential": "🟠 No Indispensable",

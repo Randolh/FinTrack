@@ -267,6 +267,7 @@ export const ui = {
         const textColor = isDark ? '#D1D5DB' : '#4B5563';
 
         const colorMap = {
+            necessary: '#3B82F6',     // Blue
             indispensable: '#10B981', // Green
             important: '#F59E0B',     // Yellow
             non_essential: '#F97316', // Orange

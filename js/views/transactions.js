@@ -221,6 +221,7 @@ export const transactionsView = {
             let necessityHtml = '';
             if (tx.type === 'expense' && tx.necessity) {
                 const necIcons = {
+                    necessary: '🔵',
                     indispensable: '🟢',
                     important: '🟡',
                     non_essential: '🟠',
