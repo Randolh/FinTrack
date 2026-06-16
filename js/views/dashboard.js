@@ -148,8 +148,7 @@ export const dashboardView = {
             el.style.textAlign = 'center';
             el.innerHTML = `
                 <div style="font-size: 2rem;">${emojis[mood]}</div>
-                <div style="font-size: var(--font-size-sm); font-weight: 600; margin-top: 4px;">${count}</div>
-                <div style="font-size: var(--font-size-xs); color: var(--color-text-muted);">${percent}%</div>
+                <div style="font-size: var(--font-size-sm); font-weight: 600; margin-top: 4px;">${percent}%</div>
             `;
             if (count === 0) el.style.opacity = '0.3';
             container.appendChild(el);
