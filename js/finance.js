@@ -138,12 +138,13 @@ export const finance = {
     getProjections() {
         const d = this.getToday();
         const startOfMonth = this.getStartOfMonth();
+        const endOfMonth = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth() + 1, 0, 23, 59, 59);
         
         // Days passed in this month (including today)
         const daysPassed = Math.max(1, Math.floor((d - startOfMonth) / (1000 * 60 * 60 * 24)) + 1);
         
-        // Total spent this month excluding fixed expenses
-        const spentSoFar = this.getTotalsForRange(startOfMonth, d, true).expenses;
+        // Total spent this month excluding fixed expenses (now includes future daily expenses)
+        const spentSoFar = this.getTotalsForRange(startOfMonth, endOfMonth, true).expenses;
         
         // Average spent per day
         const avgDaily = spentSoFar / daysPassed;
@@ -152,15 +153,20 @@ export const finance = {
         const remainingMoney = stats.month.remaining;
         
         const daysInMonth = this.getDaysInMonth(d.getFullYear(), d.getMonth());
-        const daysLeft = daysInMonth - daysPassed;
         
-        // Projected remaining at end of month
-        const projectedRemaining = remainingMoney - (avgDaily * daysLeft);
+        // El dinero total que tenemos para gastos diarios en el mes (revertimos lo gastado para tener el total real)
+        const totalAvailableForDaily = remainingMoney + spentSoFar;
+        
+        // Projected remaining at end of month: Total disponible menos (promedio diario * todos los días del mes)
+        const projectedRemaining = totalAvailableForDaily - (avgDaily * daysInMonth);
         
         // Days until zero
         let daysUntilZero = -1;
         if (avgDaily > 0) {
-            daysUntilZero = Math.floor(remainingMoney / avgDaily);
+            // Días totales que duraría el dinero desde el día 1, menos los días ya pasados
+            const totalDaysItWillLast = totalAvailableForDaily / avgDaily;
+            daysUntilZero = Math.floor(totalDaysItWillLast - daysPassed);
+            if (daysUntilZero < 0) daysUntilZero = 0;
         }
         
         return { avgDaily, projectedRemaining, daysUntilZero };
