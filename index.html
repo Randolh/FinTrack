@@ -275,10 +275,21 @@
                     </button>
                 </div>
 
-                <div class="transaction-filters">
+                <div class="transaction-filters" style="margin-bottom: var(--spacing-sm);">
                     <button class="filter-chip filter-chip--active" data-filter="all" data-i18n="hist.all">All</button>
                     <button class="filter-chip" data-filter="expense" data-i18n="hist.expenses">Expenses</button>
                     <button class="filter-chip" data-filter="income" data-i18n="hist.incomes">Incomes</button>
+                </div>
+                
+                <div id="filter-necessity-wrapper" style="display: none; justify-content: flex-end; margin-bottom: var(--spacing-md); padding: 0 var(--spacing-md);">
+                    <select id="filter-necessity" class="form__input" style="width: auto; padding: 4px 8px; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border); background-color: var(--color-surface);">
+                        <option value="all" data-i18n="hist.nec_all">All Necessities</option>
+                        <option value="indispensable" data-i18n="nec.indispensable">🟢 Indispensable</option>
+                        <option value="important" data-i18n="nec.important">🟡 Important</option>
+                        <option value="non_essential" data-i18n="nec.non_essential">🟠 Non-essential</option>
+                        <option value="trivial" data-i18n="nec.trivial">🟤 Trivial</option>
+                        <option value="impulse" data-i18n="nec.impulse">🔴 Impulse</option>
+                    </select>
                 </div>
 
                 <div class="transaction-list" id="transaction-list">

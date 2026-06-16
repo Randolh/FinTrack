@@ -8,6 +8,7 @@ import { i18n } from '../i18n.js';
 
 export const transactionsView = {
     currentFilter: 'all',
+    currentNecessityFilter: 'all',
 
     init() {
         this.listEl = document.getElementById('transaction-list');
@@ -115,14 +116,36 @@ export const transactionsView = {
 
         // Filters
         const filters = document.querySelectorAll('.filter-chip');
+        const filterNecessityWrapper = document.getElementById('filter-necessity-wrapper');
+        const filterNecessitySelect = document.getElementById('filter-necessity');
+        
         filters.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 filters.forEach(f => f.classList.remove('filter-chip--active'));
                 e.target.classList.add('filter-chip--active');
                 this.currentFilter = e.target.dataset.filter;
+                
+                // Show/hide necessity filter
+                if (filterNecessityWrapper) {
+                    if (this.currentFilter === 'expense') {
+                        filterNecessityWrapper.style.display = 'flex';
+                    } else {
+                        filterNecessityWrapper.style.display = 'none';
+                        this.currentNecessityFilter = 'all';
+                        if (filterNecessitySelect) filterNecessitySelect.value = 'all';
+                    }
+                }
+                
                 this.renderList();
             });
         });
+        
+        if (filterNecessitySelect) {
+            filterNecessitySelect.addEventListener('change', (e) => {
+                this.currentNecessityFilter = e.target.value;
+                this.renderList();
+            });
+        }
 
         // Delete delegation
         this.listEl.addEventListener('click', (e) => {
@@ -146,6 +169,10 @@ export const transactionsView = {
 
         if (this.currentFilter !== 'all') {
             txs = txs.filter(t => t.type === this.currentFilter);
+        }
+        
+        if (this.currentFilter === 'expense' && this.currentNecessityFilter !== 'all') {
+            txs = txs.filter(t => t.necessity === this.currentNecessityFilter);
         }
 
         if (txs.length === 0) {

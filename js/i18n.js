@@ -67,6 +67,7 @@ const dictionary = {
         "hist.expenses": "Expenses",
         "hist.incomes": "Incomes",
         "hist.empty": "No transactions yet.",
+        "hist.nec_all": "All Necessities",
         
         // Journal
         "journ.title": "Financial Journal",
@@ -212,6 +213,7 @@ const dictionary = {
         "hist.expenses": "Gastos",
         "hist.incomes": "Ingresos",
         "hist.empty": "Aún no tienes transacciones.",
+        "hist.nec_all": "Todas las Necesidades",
         
         "journ.title": "Diario Financiero",
         "journ.subtitle": "Reflexiona sobre tus decisiones de gasto y emociones.",
