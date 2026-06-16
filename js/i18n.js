@@ -108,6 +108,11 @@ const dictionary = {
         "cat.utilities": "⚡ Utilities / Services",
         "cat.entertainment": "🍿 Entertainment",
         "cat.shopping": "🛍️ Shopping",
+        "cat.education": "🎓 Education",
+        "cat.savings": "💰 Savings",
+        "cat.emergency": "🚨 Emergency",
+        "cat.health": "🏥 Health",
+        "cat.payments": "💳 Payments",
         "cat.other": "📦 Other",
         
         // Moods
@@ -221,6 +226,11 @@ const dictionary = {
         "cat.utilities": "⚡ Servicios",
         "cat.entertainment": "🍿 Ocio",
         "cat.shopping": "🛍️ Compras",
+        "cat.education": "🎓 Educación",
+        "cat.savings": "💰 Ahorros",
+        "cat.emergency": "🚨 Emergencia",
+        "cat.health": "🏥 Salud",
+        "cat.payments": "💳 Pagos",
         "cat.other": "📦 Otro",
         
         "mood.happy": "😊 Feliz / Orgulloso",
