@@ -209,6 +209,15 @@
                     </div>
                 </div>
 
+                <div class="dashboard-mood card" style="margin-bottom: var(--spacing-xl);">
+                    <h3 class="section-title" data-i18n="dash.emotional_meter">Emotional Meter</h3>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-sm);" data-i18n="dash.mood_summary">Mood based on reflections:</p>
+                    <div id="dash-mood-container" style="display: flex; gap: var(--spacing-md); align-items: center; justify-content: space-around; padding-top: var(--spacing-sm);">
+                        <!-- Injected moods -->
+                    </div>
+                    <p id="dash-mood-empty" style="display:none; color: var(--color-text-secondary); text-align: center; margin: 0; padding-top: var(--spacing-sm);" data-i18n="dash.no_reflections">No reflections this month.</p>
+                </div>
+
                 <div class="dashboard-charts">
                     <div class="dashboard-chart" style="margin-bottom: var(--spacing-lg);">
                         <h3 class="section-title" data-i18n="dash.expenses_category">Expenses by Category</h3>

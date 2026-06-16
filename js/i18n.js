@@ -44,6 +44,9 @@ const dictionary = {
         "dash.incomes_category": "Incomes by Category",
         "dash.no_expenses": "No expenses yet.",
         "dash.no_incomes": "No incomes yet.",
+        "dash.emotional_meter": "Emotional Meter",
+        "dash.mood_summary": "Mood based on reflections:",
+        "dash.no_reflections": "No reflections this month.",
         
         "fab.tx": "Add Transaction",
         "fab.ref": "Add Reflection",
@@ -160,6 +163,9 @@ const dictionary = {
         "dash.incomes_category": "Ingresos por Categoría",
         "dash.no_expenses": "Aún no tienes gastos.",
         "dash.no_incomes": "Aún no tienes ingresos.",
+        "dash.emotional_meter": "Medidor Emocional",
+        "dash.mood_summary": "Estado de ánimo basado en reflexiones:",
+        "dash.no_reflections": "No hay reflexiones este mes.",
 
         "fab.tx": "Añadir Registro",
         "fab.ref": "Añadir Reflexión",

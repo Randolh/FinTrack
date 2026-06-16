@@ -31,6 +31,7 @@ export const dashboardView = {
         this.updateProgress();
         this.updateProjections();
         this.updateChart();
+        this.updateMood();
     },
 
     updateProgress() {
@@ -110,5 +111,48 @@ export const dashboardView = {
             emptyInc.style.display = 'block';
             if (ui.incomeChart) { ui.incomeChart.destroy(); ui.incomeChart = null; }
         }
+    },
+
+    updateMood() {
+        const reflections = store.getReflections();
+        const container = document.getElementById('dash-mood-container');
+        const empty = document.getElementById('dash-mood-empty');
+
+        if (!container || !empty) return;
+
+        if (reflections.length === 0) {
+            container.style.display = 'none';
+            empty.style.display = 'block';
+            return;
+        }
+
+        container.style.display = 'flex';
+        empty.style.display = 'none';
+
+        // Calculate counts
+        const counts = { happy: 0, neutral: 0, sad: 0, anxious: 0 };
+        reflections.forEach(r => {
+            if (counts[r.mood] !== undefined) counts[r.mood]++;
+        });
+
+        // Emojis mapping
+        const emojis = { happy: '😊', neutral: '😐', sad: '😔', anxious: '😰' };
+        
+        container.innerHTML = '';
+        const total = reflections.length;
+        
+        Object.keys(counts).forEach(mood => {
+            const count = counts[mood];
+            const percent = Math.round((count / total) * 100);
+            const el = document.createElement('div');
+            el.style.textAlign = 'center';
+            el.innerHTML = `
+                <div style="font-size: 2rem;">${emojis[mood]}</div>
+                <div style="font-size: var(--font-size-sm); font-weight: 600; margin-top: 4px;">${count}</div>
+                <div style="font-size: var(--font-size-xs); color: var(--color-text-muted);">${percent}%</div>
+            `;
+            if (count === 0) el.style.opacity = '0.3';
+            container.appendChild(el);
+        });
     }
 };
