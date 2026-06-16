@@ -422,7 +422,17 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form__row" id="trans-daily-wrapper" style="margin-top: -5px; margin-bottom: 5px;">
+                    <div class="form__group" id="trans-necessity-wrapper" style="margin-top: var(--spacing-sm);">
+                        <label class="form__label" for="trans-necessity" data-i18n="modal.tx.necessity">Necessity</label>
+                        <select id="trans-necessity" class="form__input">
+                            <option value="indispensable" data-i18n="nec.indispensable">🟢 Indispensable</option>
+                            <option value="important" data-i18n="nec.important">🟡 Important</option>
+                            <option value="non_essential" data-i18n="nec.non_essential">🟠 Non-essential</option>
+                            <option value="trivial" data-i18n="nec.trivial">🟤 Trivial</option>
+                            <option value="impulse" data-i18n="nec.impulse">🔴 Impulse</option>
+                        </select>
+                    </div>
+                    <div class="form__row" id="trans-daily-wrapper" style="margin-top: 15px; margin-bottom: 5px;">
                         <label class="form__label" style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
                             <div class="toggle-switch">
                                 <input type="checkbox" id="trans-is-daily" checked>

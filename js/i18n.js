@@ -92,6 +92,13 @@ const dictionary = {
         "modal.tx.category": "Category",
         "modal.tx.is_daily": "Count towards Daily",
         "modal.tx.save": "Save Record",
+        "modal.tx.necessity": "Necessity",
+        
+        "nec.indispensable": "🟢 Indispensable",
+        "nec.important": "🟡 Important",
+        "nec.non_essential": "🟠 Non-essential",
+        "nec.trivial": "🟤 Trivial (Latte Factor)",
+        "nec.impulse": "🔴 Impulse",
         
         // Modals - Reflection
         "modal.ref.title": "New Reflection",
@@ -218,6 +225,13 @@ const dictionary = {
         "modal.tx.category": "Categoría",
         "modal.tx.is_daily": "Contar como Gasto Diario",
         "modal.tx.save": "Guardar Registro",
+        "modal.tx.necessity": "Nivel de Necesidad",
+        
+        "nec.indispensable": "🟢 Indispensable",
+        "nec.important": "🟡 Importante",
+        "nec.non_essential": "🟠 No Indispensable",
+        "nec.trivial": "🟤 Gasto Hormiga",
+        "nec.impulse": "🔴 Impulso",
         
         "modal.ref.title": "Nueva Reflexión",
         "modal.ref.topic": "Título / Tema",

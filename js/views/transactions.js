@@ -27,8 +27,12 @@ export const transactionsView = {
             const date = document.getElementById('trans-date').value;
             const category = document.getElementById('trans-category').value;
             const isDaily = document.getElementById('trans-is-daily').checked;
+            const necessity = document.getElementById('trans-necessity').value;
 
-            store.addTransaction({ type, amount, desc, date, category, isDaily });
+            store.addTransaction({ 
+                type, amount, desc, date, category, isDaily, 
+                necessity: type === 'expense' ? necessity : null 
+            });
             
             // Reset form and close modal
             this.form.reset();
@@ -85,20 +89,25 @@ export const transactionsView = {
             i18n.translateDOM();
         };
 
-        // Hide daily toggle if income is selected and update categories
+        // Hide daily toggle and necessity if income is selected
         const typeRadios = document.querySelectorAll('input[name="trans_type"]');
         const dailyWrapper = document.getElementById('trans-daily-wrapper');
+        const necessityWrapper = document.getElementById('trans-necessity-wrapper');
         
-        updateCategoryOptions(document.querySelector('input[name="trans_type"]:checked')?.value || 'expense');
+        const initialType = document.querySelector('input[name="trans_type"]:checked')?.value || 'expense';
+        updateCategoryOptions(initialType);
+        if (necessityWrapper) necessityWrapper.style.display = initialType === 'income' ? 'none' : 'block';
         
         typeRadios.forEach(radio => {
             radio.addEventListener('change', (e) => {
                 const type = e.target.value;
                 if (type === 'income') {
                     if (dailyWrapper) dailyWrapper.style.display = 'none';
+                    if (necessityWrapper) necessityWrapper.style.display = 'none';
                     updateCategoryOptions('income');
                 } else {
                     if (dailyWrapper) dailyWrapper.style.display = 'block';
+                    if (necessityWrapper) necessityWrapper.style.display = 'block';
                     updateCategoryOptions('expense');
                 }
             });
@@ -182,6 +191,19 @@ export const transactionsView = {
                 translatedCat = translatedCat.replace(/[\u1000-\uFFFF]+/g, '').trim();
             }
 
+            let necessityHtml = '';
+            if (tx.type === 'expense' && tx.necessity) {
+                const necIcons = {
+                    indispensable: '🟢',
+                    important: '🟡',
+                    non_essential: '🟠',
+                    trivial: '🟤',
+                    impulse: '🔴'
+                };
+                const necText = i18n.t(`nec.${tx.necessity}`);
+                necessityHtml = `<span style="font-size: 0.8rem; margin-left: 6px; cursor: help;" title="${necText}">${necIcons[tx.necessity] || ''}</span>`;
+            }
+
             return `
                 <div class="transaction-item">
                     <div class="transaction-item__left">
@@ -189,7 +211,7 @@ export const transactionsView = {
                             <i class="fa-solid ${iconClass}"></i>
                         </div>
                         <div class="transaction-item__details">
-                            <span class="transaction-item__title">${tx.desc}</span>
+                            <span class="transaction-item__title">${tx.desc}${necessityHtml}</span>
                             <span class="transaction-item__date">${formattedDate} &bull; <span style="text-transform:capitalize">${translatedCat}</span></span>
                         </div>
                     </div>
