@@ -209,6 +209,28 @@
                     </div>
                 </div>
 
+                <div class="dashboard-advanced card" style="margin-bottom: var(--spacing-xl);">
+                    <h3 class="section-title" data-i18n="dash.adv_stats">Advanced Statistics</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="stat-item">
+                            <p class="stat-item__label" style="display: flex; align-items: center; gap: 5px;">
+                                <span data-i18n="dash.est_avg">Estimated Month Avg</span>
+                                <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: help; color: var(--color-text-secondary);" title="Total spend diluted over all days of the month" data-i18n-title="dash.est_avg_desc"></i>
+                            </p>
+                            <p class="stat-item__value" id="dash-est-avg">$0.00</p>
+                            <p id="dash-est-days" style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: -5px;"></p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-item__label" style="display: flex; align-items: center; gap: 5px;">
+                                <span data-i18n="dash.real_avg">Spend-Day Avg</span>
+                                <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: help; color: var(--color-text-secondary);" title="Average spend only on days you actually spent money" data-i18n-title="dash.real_avg_desc"></i>
+                            </p>
+                            <p class="stat-item__value" id="dash-real-avg">$0.00</p>
+                            <p id="dash-real-days" style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: -5px;"></p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="dashboard-mood card" style="margin-bottom: var(--spacing-xl);">
                     <h3 class="section-title" data-i18n="dash.emotional_meter">Emotional Meter</h3>
                     <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-sm);" data-i18n="dash.mood_summary">Mood based on reflections:</p>

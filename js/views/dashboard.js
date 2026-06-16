@@ -30,6 +30,7 @@ export const dashboardView = {
 
         this.updateProgress();
         this.updateProjections();
+        this.updateAdvancedAverages();
         this.updateChart();
         this.updateMood();
     },
@@ -80,6 +81,22 @@ export const dashboardView = {
         } else {
             this.elProjBroke.textContent = `${proj.daysUntilZero} días`;
             this.elProjExplanation.textContent = i18n.t('dash.proj_explanation', avgFormatted, proj.daysUntilZero.toString());
+        }
+    },
+
+    updateAdvancedAverages() {
+        const adv = finance.getAdvancedAverages();
+        const estAvgEl = document.getElementById('dash-est-avg');
+        const realAvgEl = document.getElementById('dash-real-avg');
+        const estDaysEl = document.getElementById('dash-est-days');
+        const realDaysEl = document.getElementById('dash-real-days');
+        
+        if (estAvgEl && realAvgEl) {
+            estAvgEl.textContent = finance.formatCurrency(adv.estimatedAverage);
+            realAvgEl.textContent = finance.formatCurrency(adv.actualSpendAverage);
+            
+            if (estDaysEl) estDaysEl.textContent = i18n.t('dash.based_on_days', adv.daysInMonth.toString());
+            if (realDaysEl) realDaysEl.textContent = i18n.t('dash.based_on_spend_days', adv.spendDaysCount.toString());
         }
     },
 

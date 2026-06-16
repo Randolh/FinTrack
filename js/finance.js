@@ -90,6 +90,35 @@ export const finance = {
         return { expenses, income };
     },
 
+    getAdvancedAverages() {
+        const txs = store.getTransactions();
+        const startOfMonth = this.getStartOfMonth();
+        const endOfMonth = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth() + 1, 0, 23, 59, 59);
+        const daysInMonth = endOfMonth.getDate();
+        
+        let totalDailySpend = 0;
+        const uniqueSpendDays = new Set();
+        
+        txs.forEach(tx => {
+            const txDate = this.parseDate(tx.date);
+            if (tx.type === 'expense' && tx.isDaily && txDate >= startOfMonth && txDate <= endOfMonth) {
+                totalDailySpend += tx.amount;
+                uniqueSpendDays.add(tx.date); // tx.date is YYYY-MM-DD
+            }
+        });
+        
+        const estimatedAverage = totalDailySpend / daysInMonth;
+        const spendDaysCount = uniqueSpendDays.size;
+        const actualSpendAverage = spendDaysCount > 0 ? totalDailySpend / spendDaysCount : 0;
+        
+        return {
+            estimatedAverage,
+            actualSpendAverage,
+            spendDaysCount,
+            daysInMonth
+        };
+    },
+
     // Get current progress stats
     getProgressStats() {
         const budgets = this.getBudgets();
