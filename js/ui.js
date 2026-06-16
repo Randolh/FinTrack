@@ -8,6 +8,7 @@ import { finance } from './finance.js';
 export const ui = {
     expenseChart: null,
     incomeChart: null,
+    necessityChart: null,
 
     init() {
         this.applyTheme(store.getTheme());
@@ -241,5 +242,61 @@ export const ui = {
         } else {
             this.incomeChart = newChart;
         }
+    },
+
+    renderNecessityChart(canvasId, data) {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+
+        if (this.necessityChart) {
+            this.necessityChart.destroy();
+        }
+
+        const values = Object.values(data);
+        const total = values.reduce((sum, val) => sum + val, 0);
+
+        const labels = Object.keys(data).map((k, index) => {
+            const translated = i18n.t(`nec.${k}`);
+            const val = values[index];
+            const percent = total > 0 ? Math.round((val / total) * 100) : 0;
+            const formattedVal = finance.formatCurrency(val);
+            return `${translated} - ${percent}% (${formattedVal})`;
+        });
+
+        const isDark = store.getTheme() === 'dark';
+        const textColor = isDark ? '#D1D5DB' : '#4B5563';
+
+        const colorMap = {
+            indispensable: '#10B981', // Green
+            important: '#F59E0B',     // Yellow
+            non_essential: '#F97316', // Orange
+            trivial: '#8B4513',       // Brown
+            impulse: '#EF4444'        // Red
+        };
+
+        const colors = Object.keys(data).map(k => colorMap[k] || '#3B82F6');
+
+        this.necessityChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors,
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: textColor }
+                    }
+                }
+            }
+        });
     }
 };

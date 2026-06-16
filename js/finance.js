@@ -217,5 +217,24 @@ export const finance = {
         });
         
         return categories;
+    },
+    
+    // Group expenses by necessity for current month
+    getExpensesByNecessity() {
+        const txs = store.getTransactions();
+        const startOfMonth = this.getStartOfMonth();
+        const endOfMonth = new Date(startOfMonth.getFullYear(), startOfMonth.getMonth() + 1, 0, 23, 59, 59);
+        
+        const necessities = {};
+        
+        txs.forEach(tx => {
+            const txDate = this.parseDate(tx.date);
+            // Solo considerar si es un gasto y tiene el campo necessity
+            if (tx.type === 'expense' && tx.necessity && txDate >= startOfMonth && txDate <= endOfMonth) {
+                necessities[tx.necessity] = (necessities[tx.necessity] || 0) + tx.amount;
+            }
+        });
+        
+        return necessities;
     }
 };

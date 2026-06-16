@@ -111,6 +111,20 @@ export const dashboardView = {
             emptyInc.style.display = 'block';
             if (ui.incomeChart) { ui.incomeChart.destroy(); ui.incomeChart = null; }
         }
+
+        const necessities = finance.getExpensesByNecessity();
+        const canvasNec = document.getElementById('necessityChart');
+        const emptyNec = document.getElementById('necessityChartEmpty');
+        
+        if (Object.keys(necessities).length > 0) {
+            canvasNec.style.display = 'block';
+            emptyNec.style.display = 'none';
+            ui.renderNecessityChart('necessityChart', necessities);
+        } else {
+            canvasNec.style.display = 'none';
+            emptyNec.style.display = 'block';
+            if (ui.necessityChart) { ui.necessityChart.destroy(); ui.necessityChart = null; }
+        }
     },
 
     updateMood() {
