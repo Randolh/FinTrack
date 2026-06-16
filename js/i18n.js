@@ -56,6 +56,9 @@ const dictionary = {
         "dash.emotional_meter": "Emotional Meter",
         "dash.mood_summary": "Mood based on reflections:",
         "dash.no_reflections": "No reflections this month.",
+        "dash.view_categories": "Categories",
+        "dash.view_timeline": "Timeline",
+        "dash.timeline_title": "Daily Evolution",
         
         "fab.tx": "Add Transaction",
         "fab.ref": "Add Reflection",
@@ -204,6 +207,9 @@ const dictionary = {
         "dash.emotional_meter": "Medidor Emocional",
         "dash.mood_summary": "Estado de ánimo basado en reflexiones:",
         "dash.no_reflections": "No hay reflexiones este mes.",
+        "dash.view_categories": "Categorías",
+        "dash.view_timeline": "Línea de Tiempo",
+        "dash.timeline_title": "Evolución Diaria",
 
         "fab.tx": "Añadir Registro",
         "fab.ref": "Añadir Reflexión",

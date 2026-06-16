@@ -87,7 +87,43 @@ export const finance = {
             }
         });
 
-        return { expenses, income };
+        return {
+            expenses,
+            income
+        };
+    },
+
+    // Get daily timeline for the current month
+    getDailyTimeline() {
+        const txs = store.getTransactions();
+        const startOfMonth = this.getStartOfMonth();
+        const daysInMonth = this.getDaysInMonth(startOfMonth.getFullYear(), startOfMonth.getMonth());
+        
+        const labels = [];
+        const expenses = Array(daysInMonth).fill(0);
+        const incomes = Array(daysInMonth).fill(0);
+        
+        for (let i = 1; i <= daysInMonth; i++) {
+            labels.push(i.toString());
+        }
+        
+        txs.forEach(tx => {
+            const txDate = this.parseDate(tx.date);
+            if (txDate.getFullYear() === startOfMonth.getFullYear() && txDate.getMonth() === startOfMonth.getMonth()) {
+                const dayIndex = txDate.getDate() - 1;
+                if (tx.type === 'expense') {
+                    expenses[dayIndex] += tx.amount;
+                } else if (tx.type === 'income') {
+                    incomes[dayIndex] += tx.amount;
+                }
+            }
+        });
+        
+        return {
+            labels,
+            expenses,
+            incomes
+        };
     },
 
     getAdvancedAverages() {

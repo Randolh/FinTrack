@@ -299,5 +299,91 @@ export const ui = {
                 }
             }
         });
+    },
+    
+    renderTimelineChart(canvasId, timelineData) {
+        const ctx = document.getElementById(canvasId);
+        if (!ctx) return;
+
+        if (this.timelineChart) {
+            this.timelineChart.destroy();
+        }
+
+        const isDark = store.getTheme() === 'dark';
+        const textColor = isDark ? '#D1D5DB' : '#4B5563';
+        const gridColor = isDark ? '#374151' : '#E5E7EB';
+
+        this.timelineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: timelineData.labels,
+                datasets: [
+                    {
+                        label: i18n.t('hist.expenses'),
+                        data: timelineData.expenses,
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    },
+                    {
+                        label: i18n.t('hist.incomes'),
+                        data: timelineData.incomes,
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: textColor, padding: 20, font: { family: "'Inter', sans-serif" } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += finance.formatCurrency(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: gridColor, display: false },
+                        ticks: { color: textColor, font: { family: "'Inter', sans-serif" } }
+                    },
+                    y: {
+                        grid: { color: gridColor },
+                        ticks: { 
+                            color: textColor, 
+                            font: { family: "'Inter', sans-serif" },
+                            callback: function(value) {
+                                const currency = store.getProfile().currency;
+                                const symbol = currency === 'USD' ? '$' : 'Q';
+                                return symbol + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 };

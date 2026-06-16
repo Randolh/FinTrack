@@ -18,6 +18,9 @@ export const dashboardView = {
         this.elProjEnd = document.getElementById('proj-end-balance');
         this.elProjBroke = document.getElementById('proj-broke-in');
         this.elProjExplanation = document.getElementById('proj-explanation');
+        this.elProjExplanationContainer = document.getElementById('proj-explanation-container');
+
+        this.render();
     },
 
     render() {
@@ -142,6 +145,13 @@ export const dashboardView = {
             emptyNec.style.display = 'block';
             if (ui.necessityChart) { ui.necessityChart.destroy(); ui.necessityChart = null; }
         }
+        
+        this.updateTimeline();
+    },
+
+    updateTimeline() {
+        const timelineData = finance.getDailyTimeline();
+        ui.renderTimelineChart('timelineChart', timelineData);
     },
 
     updateMood() {
